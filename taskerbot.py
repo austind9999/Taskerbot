@@ -96,7 +96,7 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '{} removed {}'.format(
+            self.log(subreddit, '\n\n{} removed {}'.format(
                 report['author'], permalink))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
@@ -109,7 +109,7 @@ class Bot(object):
             elif isinstance(target, Comment):
                 logging.info('Removed comment (spam).')
                 permalink = target.permalink(fast=True)
-            self.log(subreddit, '{} removed {} (spam)'.format(
+            self.log(subreddit, '\n\n{} removed {} (spam)'.format(
                 report['author'], permalink))
         # Check for !ban command.
         temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
@@ -138,7 +138,7 @@ class Bot(object):
                 report['source'].mod.remove()
             target.mod.remove()
             logging.info('User banned.')
-            self.log(subreddit, '{} banned u/{}'.format(
+            self.log(subreddit, '\n\n{} banned u/{}'.format(
                 report['author'], target.author.name))
 
     def log(self, subreddit, msg):
