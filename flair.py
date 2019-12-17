@@ -12,14 +12,14 @@ if __name__ == '__main__':
         PASSWORD = CONFIG['Password']
         SUBREDDITS = CONFIG['Subreddits']
         USER_AGENT = CONFIG['User Agent']
-        
+
 r = praw.Reddit(client_id=CLIENT_ID,
                 client_secret=CLIENT_SECRET,
                 username=USERNAME,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
-subreddit = r.subreddit('memesmod')
+subreddit = r.subreddit('memesmod')  # do not include /r/
 
 remove_flair1 = '1. ALL POSTS MUST BE MEMES'
 remove_flair2 = '2. ALL MEMES SHOULD BE GENERAL. NO SPECIFIC PERSONAL EXPERIENCES.'
@@ -35,43 +35,42 @@ remove_flair11 = '11. NO MEMES ABOUT POLITICS'
  
 def main():
     stream = subreddit.stream.submissions()
-    submission = subreddit.submissions()
     try:
         for post in stream:
             if not post.link_flair_text: continue
             if post.link_flair_text.lower() == remove_flair1.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 1')
-            if post.link_flair_text.lower() == remove_flair2.lower():
+                post.report('!rule 1')
+            elif post.link_flair_text.lower() == remove_flair2.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 2')
-            if post.link_flair_text.lower() == remove_flair3.lower():
+                post.report('!rule 2')
+            elif post.link_flair_text.lower() == remove_flair3.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 3')
-            if post.link_flair_text.lower() == remove_flair4.lower():
+                post.report('!rule 3')
+            elif post.link_flair_text.lower() == remove_flair4.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 4')
-            if post.link_flair_text.lower() == remove_flair5.lower():
+                post.report('!rule 4')
+            elif post.link_flair_text.lower() == remove_flair5.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 5')
-            if post.link_flair_text.lower() == remove_flair6.lower():
+                post.report('!rule 5')
+            elif post.link_flair_text.lower() == remove_flair6.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 6')
-            if post.link_flair_text.lower() == remove_flair7.lower():
+                post.report('!rule 6')
+            elif post.link_flair_text.lower() == remove_flair7.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 7')
-            if post.link_flair_text.lower() == remove_flair8.lower():
+                post.report('!rule 7')
+            elif post.link_flair_text.lower() == remove_flair8.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 8')
-            if post.link_flair_text.lower() == remove_flair9.lower():
+                post.report('!rule 8')
+            elif post.link_flair_text.lower() == remove_flair9.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 9')
-            if post.link_flair_text.lower() == remove_flair10.lower():
+                post.report('!rule 9')
+            elif post.link_flair_text.lower() == remove_flair10.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 10')
-            if post.link_flair_text.lower() == remove_flair11.lower():
+                post.report('!rule 10')
+            elif post.link_flair_text.lower() == remove_flair11.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 11')
+                post.report('!rule 11')
     except Exception as e:
         print('### exception: {0}'.format(str(e)))
         sleep(60)
