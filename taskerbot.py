@@ -35,7 +35,7 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
         try:
-        for post in sub:
+            for post in sub:
             if not post.link_flair_text: 
                 continue
             if post.link_flair_text.lower():
