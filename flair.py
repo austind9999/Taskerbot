@@ -32,8 +32,6 @@ remove_flair8 = '8. NO REPOSTS'
 remove_flair9 = '9. NO FORCED MEMES/OVERUSED MEMES/BAD TITLES/PUSHING AGENDAS'
 remove_flair10 = '10. NO MEMES ABOUT DEATHS/TERROR ATTACKS/WAR/VIOLENT TRAGEDIES/RAPE/MASS SHOOTINGS/ETC'
 remove_flair11 = '11. NO MEMES ABOUT POLITICS'
-
-submission = subreddit.submissions() 
  
 def main():
     stream = subreddit.stream.submissions()
@@ -42,37 +40,37 @@ def main():
             if not post.link_flair_text: continue
             if post.link_flair_text.lower() == remove_flair1.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 1')
+                post.mod.report('!rule 1')
             if post.link_flair_text.lower() == remove_flair2.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 2')
+                post.mod.report('!rule 2')
             if post.link_flair_text.lower() == remove_flair3.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 3')
+                post.mod.report('!rule 3')
             if post.link_flair_text.lower() == remove_flair4.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 4')
+                post.mod.report('!rule 4')
             if post.link_flair_text.lower() == remove_flair5.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 5')
+                post.mod.report('!rule 5')
             if post.link_flair_text.lower() == remove_flair6.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 6')
+                post.mod.report('!rule 6')
             if post.link_flair_text.lower() == remove_flair7.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 7')
+                post.mod.report('!rule 7')
             if post.link_flair_text.lower() == remove_flair8.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 8')
+                post.mod.report('!rule 8')
             if post.link_flair_text.lower() == remove_flair9.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 9')
+                post.mod.report('!rule 9')
             if post.link_flair_text.lower() == remove_flair10.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 10')
+                post.mod.report('!rule 10')
             if post.link_flair_text.lower() == remove_flair11.lower():
                 print('removing {0}'.format(post.shortlink))
-                submission.report('!rule 11')
+                post.mod.report('!rule 11')
     except Exception as e:
         print('### exception: {0}'.format(str(e)))
         sleep(60)
