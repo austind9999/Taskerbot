@@ -179,7 +179,7 @@ class Bot(object):
         for post in self.r.subreddit(subreddit).stream.submissions():
             if not post.link_flair_text: continue
             if post.link_flair_text.lower():
-                report = {'source': comment, 'reason': post.link_flair_text}
+                report = {'source': "comment", 'reason': post.link_flair_text}
                 self.handle_report(subreddit, report, post.link_flair_text.lower())
      
     
