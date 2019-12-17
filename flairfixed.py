@@ -49,9 +49,11 @@ class Bot(object):
 
     def check_flair(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
-        sub = self.subreddits[subreddit]
-#        stream = subreddit.stream.submissions()
-        for post in self.r.subreddit(subreddit).submissions():
+        subreddit = r.subreddit('memesmod')
+#        sub = self.subreddits[subreddit]
+        stream = subreddit.stream.submissions()
+        for post in stream:
+#        for post in self.r.subreddit(subreddit).submissions():
             if not post.link_flair_text: continue
 #            if post.link_flair_text.lower(): #== remove_flair.lower():
                 #print('removing {0}'.format(post.shortlink))
