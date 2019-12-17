@@ -42,7 +42,7 @@ class Bot(object):
                 continue
             if post.link_flair_text.lower() == match.lower():
                 
-            report = {'reason': match.lower()}
+                report = {'reason': match.lower()}
 
                 rule = match.group(1)
                 note = match.group(2)
