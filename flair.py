@@ -19,7 +19,6 @@ r = praw.Reddit(client_id=CLIENT_ID,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
-submission = r.subreddit.submission()
 subreddit = r.subreddit('memesmod')
 
 remove_flair1 = '1. ALL POSTS MUST BE MEMES'
@@ -36,6 +35,7 @@ remove_flair11 = '11. NO MEMES ABOUT POLITICS'
  
 def main():
     stream = subreddit.stream.submissions()
+    submission = r.subreddit.submission()
     try:
         for post in stream:
             if not post.link_flair_text: continue
