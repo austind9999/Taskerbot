@@ -186,6 +186,7 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
+                    self.check_flair(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
