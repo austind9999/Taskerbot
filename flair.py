@@ -20,18 +20,21 @@ r = praw.Reddit(client_id=CLIENT_ID,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
-subreddit = r.subreddit('memesmod')  # do not include /r/
+remove_flair = '!rule 1'
  
-remove_flair1 = ('!rule 1', re.IGNORECASE)
  
 def main():
     stream = subreddit.stream.submissions()
     try:
         for post in stream:
             if not post.link_flair_text: continue
-            if post.link_flair_text.lower() == remove_flair1.lower():
+            if post.link_flair_text.lower() == remove_flair.lower():
                 print('removing {0}'.format(post.shortlink))
-                post.report('!rule 1')
+                post.mod.remove()
     except Exception as e:
         print('### exception: {0}'.format(str(e)))
         sleep(60)
+ 
+ 
+if __name__ == '__main__':
+    main()
