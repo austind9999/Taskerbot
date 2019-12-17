@@ -47,7 +47,7 @@ def main():
             if post.link_flair_text.lower() == remove_flair2.lower():
                 print('removing {0}'.format(post.shortlink))
                 post.report('!rule 2')
-            if post.link_flair_text.lower() == remove_flai3r.lower():
+            if post.link_flair_text.lower() == remove_flair3.lower():
                 print('removing {0}'.format(post.shortlink))
                 post.report('!rule 3')
             if post.link_flair_text.lower() == remove_flair4.lower():
