@@ -37,7 +37,7 @@ class Bot(object):
     try:
         for post in sub:
             if not post.link_flair_text: continue
-            if post.link_flair_text.lower()
+            if post.link_flair_text.lower():
             report = {''reason': post.link_flair_text.lower()}
             self.handle_report(subreddit, report, post.link_flair_text.lower())
             
