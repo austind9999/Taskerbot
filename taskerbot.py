@@ -172,7 +172,7 @@ class Bot(object):
                         ("Unauthorized: not an r/{} mod").format(subreddit))
             else:
                 mail.reply("Unrecognized sub:  {}.".format(subreddit))
-    {            
+                
     def main(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
         subreddit2 = r.subreddit('memesmod')
@@ -182,7 +182,7 @@ class Bot(object):
                 if post.link_flair_text.lower() == match.lower():
             report = {'reason': post.link_flair_text}
             self.handle_report(subreddit2, report, post.link_flair_text.lower())
-    } 
+     
     
     def run(self):
         while True:
