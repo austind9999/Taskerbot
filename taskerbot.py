@@ -34,13 +34,12 @@ class Bot(object):
     def flair(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
-        try:
-            for post in sub:
-                if not post.link_flair_text: 
-                    continue
-                if post.link_flair_text.lower():
-                    report = {'reason': post.link_flair_text.lower()}
-                    self.handle_report(subreddit, report, post.link_flair_text.lower())
+        for post in sub:
+            if not post.link_flair_text: 
+                continue
+            if post.link_flair_text.lower():
+            report = {'reason': post.link_flair_text.lower()}
+            self.handle_report(subreddit, report, post.link_flair_text.lower())
             
     def refresh_sub(self, subreddit):
         logging.info('Refreshing subreddit: %s…', subreddit)
