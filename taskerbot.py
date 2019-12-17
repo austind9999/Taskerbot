@@ -179,7 +179,7 @@ class Bot(object):
         stream = subreddit2.stream.submissions()
         for post in stream:
             if not post.link_flair_text: continue
-            if post.link_flair_text.lower() == match.lower():
+            if post.link_flair_text.lower()
                 report = {'reason': post.link_flair_text}
                 self.handle_report(subreddit2, report, post.link_flair_text.lower())
      
