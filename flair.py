@@ -1,7 +1,6 @@
 import praw
 import yaml
 from time import sleep
-import re
 from praw.models.reddit.submission import Submission
 
 if __name__ == '__main__':
@@ -35,7 +34,3 @@ def main():
     except Exception as e:
         print('### exception: {0}'.format(str(e)))
         sleep(60)
- 
- 
-if __name__ == '__main__':
-    main()
