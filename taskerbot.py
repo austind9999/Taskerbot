@@ -45,11 +45,8 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
         for post.link_flair_text in self.r.subreddit(subreddit).submissions():
-            if not post.link_flair_text:
-                continue
-
-            report = {'source': flair, 'reason': text}
-            self.handle_report(subreddit, report, link_flair_text)
+            report = {'reason': post.link_flair_text}
+            self.handle_report(subreddit, report, post.link_flair_text)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
