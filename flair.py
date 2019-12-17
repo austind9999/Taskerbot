@@ -35,7 +35,7 @@ remove_flair11 = '11. NO MEMES ABOUT POLITICS'
  
 def main():
     stream = subreddit.stream.submissions()
-    submission = r.subreddit.submission()
+    submission = reddit.submission()
     try:
         for post in stream:
             if not post.link_flair_text: continue
