@@ -12,13 +12,7 @@ from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
 import yaml
 
-r = praw.Reddit(client_id=CLIENT_ID,
-                client_secret=CLIENT_SECRET,
-                username=USERNAME,
-                password=PASSWORD,
-                user_agent=USER_AGENT)
 
-subreddit = r.subreddit('memesmod')
 
 class Bot(object):
 
