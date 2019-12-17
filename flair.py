@@ -16,7 +16,7 @@ import yaml
 match = re.search(r'!rule (\w*) *(.*)', report['reason'],
                   re.IGNORECASE)
     
-def main():
+def flair(self, subreddit):
     sub = self.subreddits[subreddit]
     try:
         for post in self.subreddits[subreddit].submissions():
