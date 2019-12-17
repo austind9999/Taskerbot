@@ -53,7 +53,7 @@ class Bot(object):
 #        stream = subreddit.stream.submissions()
         for post in self.r.subreddit(subreddit).submissions():
             if not post.link_flair_text: continue
-            if post.link_flair_text.lower(): #== remove_flair.lower():
+#            if post.link_flair_text.lower(): #== remove_flair.lower():
                 #print('removing {0}'.format(post.shortlink))
               report = {'reason': post.link_flair_text}
               self.handle_report(subreddit, report, post.link_flair_text.lower())
