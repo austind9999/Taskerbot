@@ -40,7 +40,17 @@ class Bot(object):
         sub['reasons'] = yaml.load(html.unescape(
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
+    
+    def check_flair(self, subreddit):
+        logging.info('Checking subreddit flair: %s…', subreddit)
+        sub = self.subreddits[subreddit]
+        for post.link_flair_text in self.r.subreddit(subreddit).submissions():
+            if not post.link_flair_text:
+                continue
 
+            report = {'source': flair, 'reason': text}
+            self.handle_report(subreddit, report, link_flair_text)
+        
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
