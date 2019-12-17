@@ -41,13 +41,6 @@ class Bot(object):
         sub['reasons'] = yaml.load(html.unescape(
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
-    
-    def check_flair(self, subreddit):
-        logging.info('Checking subreddit flair: %s…', subreddit)
-        sub = self.subreddits[subreddit]
-        for submission in self.r.subreddit(subreddit).submissions():
-            report = {'reason': submission.link_flair_text}
-            self.handle_report(subreddit, report, submission.link_flair_text)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -184,7 +177,6 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
-                    self.check_flair(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
