@@ -177,9 +177,9 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         subreddit2 = r.subreddit('memesmod')
         stream = subreddit2.stream.submissions()
-            for post in stream:
-                if not post.link_flair_text: continue
-                if post.link_flair_text.lower() == match.lower():
+        for post in stream:
+            if not post.link_flair_text: continue
+            if post.link_flair_text.lower() == match.lower():
             report = {'reason': post.link_flair_text}
             self.handle_report(subreddit2, report, post.link_flair_text.lower())
      
