@@ -1,3 +1,4 @@
+import praw
 import html
 import logging
 import re
@@ -171,13 +172,32 @@ class Bot(object):
                         ("Unauthorized: not an r/{} mod").format(subreddit))
             else:
                 mail.reply("Unrecognized sub:  {}.".format(subreddit))
+    {            
+    r = praw.Reddit(client_id=CLIENT_ID,
+                client_secret=CLIENT_SECRET,
+                username=USERNAME,
+                password=PASSWORD,
+                user_agent=USER_AGENT)
 
+    subreddit2 = r.subreddit('memesmod')
+
+    def main(self, subreddit):
+        logging.info('Checking subreddit flair: %s…', subreddit)
+        stream = subreddit2.stream.submissions()
+            for post in stream:
+                if not post.link_flair_text: continue
+                if post.link_flair_text.lower() == match.lower():
+            report = {'reason': post.link_flair_text}
+            self.handle_report(subreddit2, report, post.link_flair_text.lower())
+    } 
+    
     def run(self):
         while True:
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
+                    self.main(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
