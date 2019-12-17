@@ -33,7 +33,7 @@ class Bot(object):
 
     def flair(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
-        sub = self.subreddits[subreddit]
+        sub = subreddit(subreddit).stream.submissions()
         for post in sub:
 #            if not submission.link_flair_text: 
 #                continue
