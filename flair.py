@@ -1,6 +1,7 @@
 import praw
 import yaml
 from time import sleep
+import re
 from praw.models.reddit.submission import Submission
 
 if __name__ == '__main__':
