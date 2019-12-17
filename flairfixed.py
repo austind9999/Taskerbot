@@ -49,7 +49,6 @@ class Bot(object):
 
     def check_flair(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
-        subreddit = self.r.subreddit('memesmod')
 #        sub = self.subreddits[subreddit]
         stream = subreddit.stream.submissions()
         for post in stream:
