@@ -19,7 +19,7 @@ r = praw.Reddit(client_id=CLIENT_ID,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
-subreddit = r.subreddit('memesmod')  # do not include /r/
+subreddit = r.subreddit('memes+meme')  # do not include /r/
 
 remove_flair1 = '1. ALL POSTS MUST BE MEMES'
 remove_flair2 = '2. ALL MEMES SHOULD BE GENERAL. NO SPECIFIC PERSONAL EXPERIENCES.'
