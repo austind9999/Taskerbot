@@ -24,7 +24,7 @@ subreddit = r.subreddit('memesmod')  # do not include /r/
  
 #remove_flair = '!rule 1'
 
-remove_flair1 = re.search('!rule 1', re.IGNORECASE)
+remove_flair1 = re.match('!rule 1', re.IGNORECASE)
  
  
 def main():
