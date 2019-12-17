@@ -24,7 +24,6 @@ subreddit = r.subreddit('memesmod')  # do not include /r/
  
 remove_flair1 = ('!rule 1', re.IGNORECASE)
  
- 
 def main():
     stream = subreddit.stream.submissions()
     try:
