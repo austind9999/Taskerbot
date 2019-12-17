@@ -35,7 +35,7 @@ class Bot(object):
     match = re.search(r'!rule (\w*) *(.*)', report['reason'],
                       re.IGNORECASE)
 
-    def flair(self, subreddit):
+    def check_flair(self, subreddit):
         sub = self.subreddits[subreddit]
         try:
             for post in self.subreddits[subreddit].submissions():
@@ -221,7 +221,7 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
-                    self.flair(subreddit)
+                    self.check_flair(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
