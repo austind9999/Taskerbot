@@ -32,7 +32,7 @@ remove_flair9 = '9. NO FORCED MEMES/OVERUSED MEMES/BAD TITLES/PUSHING AGENDAS'
 remove_flair10 = '10. NO MEMES ABOUT DEATHS/TERROR ATTACKS/WAR/VIOLENT TRAGEDIES/RAPE/MASS SHOOTINGS/ETC'
 remove_flair11 = '11. NO MEMES ABOUT POLITICS'
 
-submission = reddit.submission() 
+submission = subreddit.submission() 
  
 def main():
     stream = subreddit.stream.submissions()
