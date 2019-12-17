@@ -20,6 +20,8 @@ r = praw.Reddit(client_id=CLIENT_ID,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
+subreddit = r.subreddit('memesmod')
+
 remove_flair = '!rule 1'
  
  
