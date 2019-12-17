@@ -3,6 +3,7 @@ import logging
 import re
 import sys
 import time
+from time import sleep
 
 from praw import Reddit
 from praw.models.reddit.comment import Comment
@@ -30,6 +31,16 @@ class Bot(object):
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
             logging.info('Reasons loaded.')
 
+    def flair(self, subreddit):
+        logging.info('Checking subreddit flair: %s…', subreddit)
+        sub = self.subreddits[subreddit]
+    try:
+        for post in sub:
+            if not post.link_flair_text: continue
+            if post.link_flair_text.lower()
+            report = {''reason': post.link_flair_text.lower()}
+            self.handle_report(subreddit, report, post.link_flair_text.lower())
+            
     def refresh_sub(self, subreddit):
         logging.info('Refreshing subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
@@ -41,12 +52,6 @@ class Bot(object):
         sub['reasons'] = yaml.load(html.unescape(
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
-    
-    def check_flair(self, subreddit):
-        logging.info('Checking subreddit flair: %s…', subreddit)
-        for post in self.r.subreddit(subreddit).submissions():
-            report = {'reason': post.link_flair_text}
-            self.handle_report(subreddit, report, post.link_flair_text)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -183,7 +188,7 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
-                    self.check_flair(subreddit)
+                    self.flair(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
