@@ -176,12 +176,11 @@ class Bot(object):
     def main(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
-        stream = subreddit.stream.submissions()
-        for post in stream:
+        for post in self.r.subreddit.stream.submissions().stream.submissions():
             if not post.link_flair_text: continue
             if post.link_flair_text.lower():
                 report = {'reason': post.link_flair_text}
-                self.handle_report(sub, report, post.link_flair_text.lower())
+                self.handle_report(subreddit, report, post.link_flair_text.lower())
      
     
     def run(self):
