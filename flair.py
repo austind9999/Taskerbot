@@ -1,5 +1,6 @@
 import praw
 import yaml
+import logging
 from time import sleep
 from praw.models.reddit.submission import Submission
  
