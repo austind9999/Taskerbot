@@ -30,9 +30,8 @@ class Bot(object):
             sub['reasons'] = yaml.load(html.unescape(
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
             logging.info('Reasons loaded.')
+ 
 
-    { 
-    # Check for !rule command.
     match = re.search(r'!rule (\w*) *(.*)', report['reason'],
                       re.IGNORECASE)
 
@@ -74,18 +73,7 @@ class Bot(object):
 
                 self.log(subreddit, '\n\n{} removed {}'.format(
                     report['author'], permalink))
-
-        except Exception as e:
-            print('### exception: {0}'.format(str(e)))
-            sleep(60)
-
-
-    if __name__ == '__main__':
-        main() 
-
-    }
-
-    
+ 
     def refresh_sub(self, subreddit):
         logging.info('Refreshing subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
