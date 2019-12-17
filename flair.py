@@ -43,37 +43,37 @@ class Bot(object):
                     continue
                 if post.link_flair_text.lower() == match.lower():
 
-                rule = match.group(1)
-                note = match.group(2)
-                logging.info('Rule %s matched.', rule)
-                if rule not in sub['reasons']:
-                    rule = 'Generic'
-                msg = sub['reasons'][rule]['Message']
-                if note:
-                    msg = '{}\n\n{}'.format(msg, note)
+                    rule = match.group(1)
+                    note = match.group(2)
+                    logging.info('Rule %s matched.', rule)
+                    if rule not in sub['reasons']:
+                        rule = 'Generic'
+                    msg = sub['reasons'][rule]['Message']
+                    if note:
+                        msg = '{}\n\n{}'.format(msg, note)
 
-                if 'source' in report:
-                    report['source'].mod.remove()
-                target.mod.remove()
+                    if 'source' in report:
+                        report['source'].mod.remove()
+                    target.mod.remove()
 
-                if isinstance(target, Submission):
-                    logging.info('Removed submission.')
-                    header = sub['reasons']['Header'].format(
-                        author=target.author.name)
-                    footer = sub['reasons']['Footer'].format(
-                        author=target.author.name)
-                    msg = '{header}\n\n{msg}\n\n{footer}'.format(
-                        header=header, msg=msg, footer=footer)
-                    target.reply(msg).mod.distinguish(sticky=True)
-                    target.mod.flair(sub['reasons'][rule]['Flair'])
-                    permalink = target.permalink
-                elif isinstance(target, Comment):
-                    logging.info('Removed comment.')
-                    permalink = target.permalink(fast=True)
+                    if isinstance(target, Submission):
+                        logging.info('Removed submission.')
+                        header = sub['reasons']['Header'].format(
+                            author=target.author.name)
+                        footer = sub['reasons']['Footer'].format(
+                            author=target.author.name)
+                        msg = '{header}\n\n{msg}\n\n{footer}'.format(
+                            header=header, msg=msg, footer=footer)
+                        target.reply(msg).mod.distinguish(sticky=True)
+                        target.mod.flair(sub['reasons'][rule]['Flair'])
+                        permalink = target.permalink
+                    elif isinstance(target, Comment):
+                        logging.info('Removed comment.')
+                        permalink = target.permalink(fast=True)
 
-                self.log(subreddit, '\n\n{} removed {}'.format(
-                    report['author'], permalink))
- 
+                    self.log(subreddit, '\n\n{} removed {}'.format(
+                        report['author'], permalink))
+
     def refresh_sub(self, subreddit):
         logging.info('Refreshing subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
