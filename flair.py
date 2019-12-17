@@ -1,6 +1,7 @@
 import praw
 import yaml
 from time import sleep
+from praw.models.reddit.submission import Submission
 
 if __name__ == '__main__':
     with open('config.yaml') as config_file:
