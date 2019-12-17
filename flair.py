@@ -30,10 +30,6 @@ class Bot(object):
             sub['reasons'] = yaml.load(html.unescape(
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
             logging.info('Reasons loaded.')
- 
-
-    match = re.search(r'!rule (\w*) *(.*)', report['reason'],
-                      re.IGNORECASE)
 
     def check_flair(self, subreddit):
         sub = self.subreddits[subreddit]
@@ -41,7 +37,8 @@ class Bot(object):
             if not post.link_flair_text: 
                 continue
             if post.link_flair_text.lower() == match.lower():
-                
+                match = re.search(r'!rule (\w*) *(.*)', report['reason'],
+                        re.IGNORECASE)
                 report = {'reason': match.lower()}
 
                 rule = match.group(1)
