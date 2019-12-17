@@ -35,6 +35,17 @@ class Bot(object):
 
 #    remove_flair = '!rule 1'
 
+    def refresh_sub(self, subreddit):
+        logging.info('Refreshing subreddit: %s…', subreddit)
+        sub = self.subreddits[subreddit]
+        logging.info('Loading mods…')
+        sub['mods'] = list(mod.name for mod in
+                           self.r.subreddit(subreddit).moderator())
+        logging.info('Mods loaded: %s.', sub['mods'])
+        logging.info('Loading reasons…')
+        sub['reasons'] = yaml.load(html.unescape(
+            self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
+        logging.info('Reasons loaded.')
 
     def check_flair(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
