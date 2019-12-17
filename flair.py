@@ -19,7 +19,7 @@ r = praw.Reddit(client_id=CLIENT_ID,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
-subreddit = r.subreddit('memes+meme')  # do not include /r/
+subreddit = r.subreddit('memes')  # do not include /r/
 
 remove_flair1 = '1. ALL POSTS MUST BE MEMES'
 remove_flair2 = '2. ALL MEMES SHOULD BE GENERAL. NO SPECIFIC PERSONAL EXPERIENCES'
@@ -36,6 +36,7 @@ remove_flair11 = '11. NO MEMES ABOUT POLITICS'
 def main():
     stream = subreddit.stream.submissions()
     try:
+        logging.info('Checking subreddit reports:')
         for post in stream:
             if not post.link_flair_text: continue
             if post.link_flair_text.lower() == remove_flair1.lower():
@@ -72,8 +73,9 @@ def main():
                 print('removing {0}'.format(post.shortlink))
                 post.report('!rule 11')
     except Exception as e:
+        logging.info('Sleeping…')
         print('### exception: {0}'.format(str(e)))
-        sleep(60)
+        sleep(32)
 
 if __name__ == '__main__':
     main()
