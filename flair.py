@@ -1,7 +1,17 @@
 import praw
 import yaml
 from time import sleep
-
+ 
+if __name__ == '__main__':
+    with open('config.yaml') as config_file:
+        CONFIG = yaml.load(config_file)
+        CLIENT_ID = CONFIG['Client ID']
+        CLIENT_SECRET = CONFIG['Client Secret']
+        USERNAME = CONFIG['Username']
+        PASSWORD = CONFIG['Password']
+        SUBREDDITS = CONFIG['Subreddits']
+        USER_AGENT = CONFIG['User Agent']
+        
 r = praw.Reddit(client_id=CLIENT_ID,
                 client_secret=CLIENT_SECRET,
                 username=USERNAME,
@@ -65,14 +75,3 @@ def main():
     except Exception as e:
         print('### exception: {0}'.format(str(e)))
         sleep(60)
- 
- 
-if __name__ == '__main__':
-    with open('config.yaml') as config_file:
-        CONFIG = yaml.load(config_file)
-        CLIENT_ID = CONFIG['Client ID']
-        CLIENT_SECRET = CONFIG['Client Secret']
-        USERNAME = CONFIG['Username']
-        PASSWORD = CONFIG['Password']
-        SUBREDDITS = CONFIG['Subreddits']
-        USER_AGENT = CONFIG['User Agent']
