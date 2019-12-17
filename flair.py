@@ -19,7 +19,7 @@ r = praw.Reddit(client_id=CLIENT_ID,
                 password=PASSWORD,
                 user_agent=USER_AGENT)
 
-submission = reddit.submission()
+submission = r.submission()
  
 subreddit = r.subreddit('memesmod')  # do not include /r/
  
