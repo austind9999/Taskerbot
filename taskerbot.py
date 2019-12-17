@@ -8,6 +8,7 @@ from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
+from praw.models.reddit.submission import SubredditFlairTemplates
 import yaml
 
 
@@ -45,9 +46,9 @@ class Bot(object):
     def check_flair(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
-        for flair in self.r.subreddit(subreddit).flair(limit=None):
-            report = {'reason': flair.link_flair_text}
-            self.handle_report(subreddit, report, flair)
+        for submission in self.r.subreddit(subreddit).submissions():
+            report = {'reason': submission.link_flair_text}
+            self.handle_report(subreddit, report, submission.link_flair_text)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
