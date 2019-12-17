@@ -176,7 +176,7 @@ class Bot(object):
     def main(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
-        stream = sub.stream.submissions()
+        stream = subreddit.stream.submissions()
         for post in stream:
             if not post.link_flair_text: continue
             if post.link_flair_text.lower():
