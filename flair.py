@@ -1,4 +1,5 @@
 import praw
+import yaml
 from time import sleep
 
 if __name__ == '__main__':
