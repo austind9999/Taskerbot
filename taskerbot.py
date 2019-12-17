@@ -10,7 +10,6 @@ from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
-from praw.models.reddit.submission import Stream
 import yaml
 
 
@@ -177,7 +176,7 @@ class Bot(object):
     def main(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
-        for post in self.r.subreddit.stream.submissions().stream.submissions():
+        for post in self.r.subreddits[subreddit].stream.submissions():
             if not post.link_flair_text: continue
             if post.link_flair_text.lower():
                 report = {'reason': post.link_flair_text}
