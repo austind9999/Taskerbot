@@ -4,6 +4,7 @@ import logging
 import re
 import sys
 import time
+from time import sleep
 
 from praw import Reddit
 from praw.models.reddit.comment import Comment
@@ -207,11 +208,6 @@ if __name__ == '__main__':
     
     
 {
-import praw
-import yaml
-from time import sleep
-from praw.models.reddit.submission import Submission
- 
 if __name__ == '__main__':
     with open('config.yaml') as config_file:
         CONFIG = yaml.load(config_file)
