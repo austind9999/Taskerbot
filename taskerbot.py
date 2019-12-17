@@ -175,7 +175,7 @@ class Bot(object):
                 
     def main(self, subreddit):
         logging.info('Checking subreddit flair: %s…', subreddit)
-        subreddit2 = r.subreddit('memesmod')
+        subreddit2 = self.r.subreddit('memesmod')
         stream = subreddit2.stream.submissions()
         for post in stream:
             if not post.link_flair_text: continue
