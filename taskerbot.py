@@ -173,12 +173,6 @@ class Bot(object):
             else:
                 mail.reply("Unrecognized sub:  {}.".format(subreddit))
     {            
-    r = praw.Reddit(client_id=CLIENT_ID,
-                client_secret=CLIENT_SECRET,
-                username=USERNAME,
-                password=PASSWORD,
-                user_agent=USER_AGENT)
-
     subreddit2 = r.subreddit('memesmod')
 
     def main(self, subreddit):
