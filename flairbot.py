@@ -167,6 +167,7 @@ class Bot(object):
         stream = self.r.subreddit(subreddit).stream.submissions()
         match = 'mobilemodbot'
         for submission in stream:
+            if not submission.link_flair_css_class: continue
             if submission.link_flair_css_class == match:
                 report = {'reason': submission.link_flair_css_class}
             # Check for !rule command.
@@ -203,7 +204,7 @@ class Bot(object):
 
                     self.log(subreddit, '\n\n{} removed {}'.format(
                         report['author'], permalink))
-                continue
+   #             continue
                 
     def run(self):
         while True:
