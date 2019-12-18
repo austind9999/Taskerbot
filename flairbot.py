@@ -49,8 +49,8 @@ class Bot(object):
 #        for post in self.r.subreddit(subreddit).submissions():
         stream = self.r.subreddit(subreddit).stream.submissions()
         for post in stream:
-            report = {'source': SubmissionFlair, 'reason': post.link_flair_text}
-            self.handle_report(subreddit, report, post.link_flair_text.lower())
+            report = {'source': SubmissionFlair, 'reason': post.link_flair_text.lower()}
+            self.handle_report(subreddit, report, post.link_flair_text())
         
     def handle_report(self, subreddit, report, target):
         sub = self.subreddits[subreddit]
