@@ -42,28 +42,14 @@ class Bot(object):
         sub['reasons'] = yaml.load(html.unescape(
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
-        
-    def check_comments(self, subreddit):
-        logging.info('Checking subreddit: %s…', subreddit)
+
+    def check_flair(self, subreddit):
+        logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
-        for comment in self.r.subreddit(subreddit).comments(limit=100):
-            if (comment.banned_by or not comment.author or
-                    comment.author.name not in sub['mods']):
-                continue
-            report = {'source': comment, 'reason': comment.body,
-                      'author': comment.author.name}
-            self.handle_report(subreddit, report, comment.parent())
-
-    def check_reports(self, subreddit):
-        logging.info('Checking subreddit reports: %s…', subreddit)
-        for reported_submission in self.r.subreddit(subreddit).mod.reports():
-            if not reported_submission.mod_reports:
-                continue
-
-            report = {'reason': reported_submission.mod_reports[0][0],
-                      'author': reported_submission.mod_reports[0][1]}
-            self.handle_report(subreddit, report, reported_submission)
-
+        for post in self.r.subreddit(subreddit).submissions():
+            report = {'source': flair, 'reason': post.link_flair_text.lower()}
+            self.handle_report(subreddit, report, post.link_flair_text)
+        
     def handle_report(self, subreddit, report, target):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
@@ -177,8 +163,7 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                    self.check_comments(subreddit)
-                    self.check_reports(subreddit)
+                    self.check_flair(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
