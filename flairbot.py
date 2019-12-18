@@ -43,14 +43,14 @@ class Bot(object):
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
 
-    def check_flair(self, subreddit):
-        logging.info('Checking subreddit flair: %s…', subreddit)
-        sub = self.subreddits[subreddit]
-#        for post in self.r.subreddit(subreddit).submissions():
-        stream = self.r.subreddit(subreddit).stream.submissions()
-        for submission in stream:
-            report = {'reason': submission.link_flair_text}
-            self.handle_report(subreddit, report, submission.link_flair_text)
+#    def check_flair(self, subreddit):
+#        logging.info('Checking subreddit flair: %s…', subreddit)
+#        sub = self.subreddits[subreddit]
+##        for post in self.r.subreddit(subreddit).submissions():
+#        stream = self.r.subreddit(subreddit).stream.submissions()
+#        for submission in stream:
+#            report = {'reason': submission.link_flair_text}
+#            self.handle_report(subreddit, report, submission.link_flair_text)
         
     def handle_report(self, subreddit, report, target):
         sub = self.subreddits[subreddit]
@@ -160,13 +160,55 @@ class Bot(object):
             else:
                 mail.reply("Unrecognized sub:  {}.".format(subreddit))
 
+    def check_flairs(self, subreddit, report, target)
+        logging.info('Checking subreddit flairs: %s…', subreddit)
+        sub = self.subreddits[subreddit]
+##        for post in self.r.subreddit(subreddit).submissions():
+        stream = self.r.subreddit(subreddit).stream.submissions()
+        for submission in stream:
+            report = {'reason': submission.link_flair_text}
+            # Check for !rule command.
+            match = re.search(r'!rule (\w*) *(.*)', report['reason'], re.IGNORECASE)
+            if match:
+                rule = match.group(1)
+                note = match.group(2)
+                logging.info('Rule %s matched.', rule)
+                if rule not in sub['reasons']:
+                    rule = 'Generic'
+                msg = sub['reasons'][rule]['Message']
+#                if note:
+#                    msg = '{}\n\n{}'.format(msg, note)
+
+#                if 'source' in report:
+#                    report['source'].mod.remove()
+#                target.mod.remove()
+
+                if isinstance(target, Submission):
+                    logging.info('Removed submission.')
+                    header = sub['reasons']['Header'].format(
+                        author=target.author.name)
+                    footer = sub['reasons']['Footer'].format(
+                        author=target.author.name)
+                    msg = '{header}\n\n{msg}\n\n{footer}'.format(
+                        header=header, msg=msg, footer=footer)
+                    target.reply(msg).mod.distinguish(sticky=True)
+                    target.mod.flair(sub['reasons'][rule]['Flair'])
+                    permalink = target.permalink
+#                elif isinstance(target, Comment):
+#                    logging.info('Removed comment.')
+#                    permalink = target.permalink(fast=True)
+
+                self.log(subreddit, '\n\n{} removed {}'.format(
+                    report['author'], permalink))
+                
     def run(self):
         while True:
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                    self.check_flair(subreddit)
+ #                   self.check_flair(subreddit)
                     self.check_mail()
+                    self.check_flairs(subreddit)
                 except Exception as exception:
                     logging.exception(exception)
             logging.info('Sleeping…')
