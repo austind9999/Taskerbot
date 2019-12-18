@@ -76,10 +76,9 @@ def main():
          elif post.link_flair_text.lower() == remove_flair11.lower():
              print('removing {0}'.format(post.shortlink))
              post.report('!rule 11')
-      except Exception as exception:
-          logging.exception(exception)
-  logging.info('Sleeping…')
-  time.sleep(32) # PRAW caches responses for 30s.
+      except Exception as e:
+        print('### exception: {0}'.format(str(e)))
+        sleep(60)
 
 if __name__ == '__main__':
     main()
