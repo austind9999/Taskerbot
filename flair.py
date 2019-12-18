@@ -38,9 +38,10 @@ def main():
 #    while True:
 #        stream = subreddit.stream.submissions()
 #        logging.info('Running cycle…')
-        stream = subreddit.stream.submissions()
+      stream = subreddit.stream.submissions()
+      try:
         for post in stream:
-             try:
+#             try:
                 if not post.link_flair_text: continue
                 if post.link_flair_text.lower() == remove_flair1.lower():
                     print('removing {0}'.format(post.shortlink))
