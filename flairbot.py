@@ -160,7 +160,7 @@ class Bot(object):
             else:
                 mail.reply("Unrecognized sub:  {}.".format(subreddit))
 
-    def check_flairs(self, subreddit, report, target):
+    def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         sub = self.subreddits[subreddit]
 ##        for post in self.r.subreddit(subreddit).submissions():
