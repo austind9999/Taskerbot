@@ -165,7 +165,7 @@ class Bot(object):
         sub = self.subreddits[subreddit]
 ##        for post in self.r.subreddit(subreddit).submissions():
         stream = self.r.subreddit(subreddit).stream.submissions()
-        match = re.search(r'mobilemodbot (\w*) *(.*)', report['reason'], re.IGNORECASE)
+        match = 'mobilemodbot'
         for submission in stream:
             if submission.link_flair_css_class == match:
                 report = {'reason': submission.link_flair_css_class}
