@@ -42,44 +42,44 @@ def main():
       try:
         for post in stream:
 #             try:
-                if not post.link_flair_text: continue
-                if post.link_flair_text.lower() == remove_flair1.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 1')
-                elif post.link_flair_text.lower() == remove_flair2.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 2')
-                elif post.link_flair_text.lower() == remove_flair3.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 3')
-                elif post.link_flair_text.lower() == remove_flair4.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 4')
-                elif post.link_flair_text.lower() == remove_flair5.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 5')
-                elif post.link_flair_text.lower() == remove_flair6.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 6')
-                elif post.link_flair_text.lower() == remove_flair7.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 7')
-                elif post.link_flair_text.lower() == remove_flair8.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 8')
-                elif post.link_flair_text.lower() == remove_flair9.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 9')
-                elif post.link_flair_text.lower() == remove_flair10.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 10')
-                elif post.link_flair_text.lower() == remove_flair11.lower():
-                    print('removing {0}'.format(post.shortlink))
-                    post.report('!rule 11')
-             except Exception as exception:
-                 logging.exception(exception)
-        logging.info('Sleeping…')
-        time.sleep(32) # PRAW caches responses for 30s.
+         if not post.link_flair_text: continue
+         if post.link_flair_text.lower() == remove_flair1.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 1')
+         elif post.link_flair_text.lower() == remove_flair2.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 2')
+         elif post.link_flair_text.lower() == remove_flair3.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 3')
+         elif post.link_flair_text.lower() == remove_flair4.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 4')
+         elif post.link_flair_text.lower() == remove_flair5.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 5')
+         elif post.link_flair_text.lower() == remove_flair6.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 6')
+         elif post.link_flair_text.lower() == remove_flair7.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 7')
+         elif post.link_flair_text.lower() == remove_flair8.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 8')
+         elif post.link_flair_text.lower() == remove_flair9.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 9')
+         elif post.link_flair_text.lower() == remove_flair10.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 10')
+         elif post.link_flair_text.lower() == remove_flair11.lower():
+             print('removing {0}'.format(post.shortlink))
+             post.report('!rule 11')
+      except Exception as exception:
+          logging.exception(exception)
+  logging.info('Sleeping…')
+  time.sleep(32) # PRAW caches responses for 30s.
 
 if __name__ == '__main__':
     main()
