@@ -30,8 +30,6 @@ class Bot(object):
             sub['reasons'] = yaml.load(html.unescape(
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
             logging.info('Reasons loaded.')
-            
-    stream = subreddit(subreddit).stream.submissions()
     
     def refresh_sub(self, subreddit):
         logging.info('Refreshing subreddit: %s…', subreddit)
@@ -49,6 +47,7 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
 #        for post in self.r.subreddit(subreddit).submissions():
+        stream = subreddit(meme+memes).stream.submissions()
         for post in stream:
             report = {'source': flair, 'reason': post.link_flair_text}
             self.handle_report(subreddit, report, post.link_flair_text.lower())
