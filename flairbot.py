@@ -47,7 +47,7 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
         for post in self.r.subreddit(subreddit).submissions():
-            report = {'source': flair, 'reason': post.link_flair_text.lower()}
+            report = {'source': flair, 'reason': post.link_flair_text}
             self.handle_report(subreddit, report, post.link_flair_text)
         
     def handle_report(self, subreddit, report, target):
