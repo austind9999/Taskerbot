@@ -36,10 +36,11 @@ remove_flair11 = '11. NO MEMES ABOUT POLITICS'
  
 def main():
     while True:
-        stream = subreddit.stream.submissions()
-            logging.info('Running cycle…')
-            for post in stream:
+#        stream = subreddit.stream.submissions()
+           logging.info('Running cycle…')
+           for post in stream:
                 try:
+                   stream = subreddit.stream.submissions()
                    if not post.link_flair_text: continue
                    if post.link_flair_text.lower() == remove_flair1.lower():
                        print('removing {0}'.format(post.shortlink))
