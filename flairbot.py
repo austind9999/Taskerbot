@@ -55,8 +55,10 @@ class Bot(object):
     def handle_report(self, subreddit, report, target):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
-        match = re.search(r'!rule (\w*) *(.*)', report['reason'],
+        match = re.match(r'!rule (\w*) *(.*)', report['reason'],
                           re.IGNORECASE)
+#        match = re.search(r'!rule (\w*) *(.*)', report['reason'],
+#                          re.IGNORECASE)
         if match:
             rule = match.group(1)
             note = match.group(2)
