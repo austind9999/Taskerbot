@@ -74,7 +74,7 @@ def main():
                 post.report('!rule 11')
     except Exception as e:
         print('### exception: {0}'.format(str(e)))
-        sleep(60)
+        sleep(32)
 
 if __name__ == '__main__':
     main()
