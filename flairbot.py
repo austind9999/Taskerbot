@@ -167,7 +167,7 @@ class Bot(object):
         stream = self.r.subreddit(subreddit).stream.submissions()
         match = 'mobilemodbot'
         for submission in stream:
-            if not submission.link_flair_css_class: continue
+            if not submission.link_flair_css_class == match: continue
             if submission.link_flair_css_class == match:
                 report = {'reason': submission.link_flair_css_class}
             # Check for !rule command.
