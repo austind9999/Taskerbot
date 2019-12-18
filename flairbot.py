@@ -47,7 +47,7 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
 #        for post in self.r.subreddit(subreddit).submissions():
-        stream = subreddit(meme+memes).stream.submissions()
+        stream = self.r.subreddit(subreddit).stream.submissions()
         for post in stream:
             report = {'source': flair, 'reason': post.link_flair_text}
             self.handle_report(subreddit, report, post.link_flair_text.lower())
