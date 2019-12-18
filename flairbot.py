@@ -48,7 +48,7 @@ class Bot(object):
         sub = self.subreddits[subreddit]
         for post in self.r.subreddit(subreddit).submissions():
             report = {'source': flair, 'reason': post.link_flair_text}
-            self.handle_report(subreddit, report, post.link_flair_text)
+            self.handle_report(subreddit, report, post.link_flair_text.lower())
         
     def handle_report(self, subreddit, report, target):
         sub = self.subreddits[subreddit]
