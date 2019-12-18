@@ -11,7 +11,6 @@ from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
 import yaml
 
-stream = subreddit(subreddit).stream.submissions()
 
 class Bot(object):
 
@@ -31,7 +30,9 @@ class Bot(object):
             sub['reasons'] = yaml.load(html.unescape(
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
             logging.info('Reasons loaded.')
-
+            
+    stream = subreddit(subreddit).stream.submissions()
+    
     def refresh_sub(self, subreddit):
         logging.info('Refreshing subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
