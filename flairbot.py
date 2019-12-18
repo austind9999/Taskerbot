@@ -11,6 +11,7 @@ from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
 import yaml
 
+stream = subreddit(subreddit).stream.submissions()
 
 class Bot(object):
 
@@ -47,7 +48,6 @@ class Bot(object):
         logging.info('Checking subreddit flair: %s…', subreddit)
         sub = self.subreddits[subreddit]
 #        for post in self.r.subreddit(subreddit).submissions():
-        stream = subreddit(subreddit).stream.submissions()
         for post in stream:
             report = {'source': flair, 'reason': post.link_flair_text}
             self.handle_report(subreddit, report, post.link_flair_text.lower())
