@@ -203,7 +203,7 @@ class Bot(object):
 
                     self.log(subreddit, '\n\n{} removed {}'.format(
                         report['author'], permalink))
-        continue
+                continue
                 
     def run(self):
         while True:
