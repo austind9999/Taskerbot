@@ -35,9 +35,9 @@ remove_flair10 = '10. NO MEMES ABOUT DEATHS/TERROR ATTACKS/WAR/VIOLENT TRAGEDIES
 remove_flair11 = '11. NO MEMES ABOUT POLITICS'
  
 def main():
-    while True:
+#    while True:
 #        stream = subreddit.stream.submissions()
-        logging.info('Running cycle…')
+#        logging.info('Running cycle…')
         stream = subreddit.stream.submissions()
         for post in stream:
              try:
