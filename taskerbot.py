@@ -96,9 +96,9 @@ class Bot(object):
             if note:
                 msg = '{}\n\n{}'.format(msg, note)
 
-            if 'source' in report:
-                report['source'].mod.remove()
-            target.mod.remove()
+#            if 'source' in report:
+#                report['source'].mod.remove()
+#            target.mod.remove()
 
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
