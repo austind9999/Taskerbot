@@ -56,7 +56,7 @@ class Bot(object):
             if not submission.link_flair_text:
                 continue
             report = {'reason': submission.link_flair_text, 'author': 'Flair'}
-            self.handle_report(subreddit, report, submission.link_flair_text)
+            self.handle_report(subreddit, report, submission)
         
       #end addition
                       
