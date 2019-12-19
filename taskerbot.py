@@ -52,8 +52,8 @@ class Bot(object):
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(subreddit='memes, limit=200')
         for submission in gen:
-            if submission.link_flair_text:
-                continue
+#            if submission.link_flair_text:
+#                continue
             report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
             self.handle_report(subreddit, report, submission)
         
