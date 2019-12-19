@@ -98,7 +98,7 @@ class Bot(object):
 
             if 'source' in report:
                 report['source'].mod.remove()
-#            target.mod.remove()
+            target.mod.remove()
 
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
