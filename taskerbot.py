@@ -103,7 +103,7 @@ class Bot(object):
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-#                    author=target.author.name)
+                    author=target.author.name)
                 footer = sub['reasons']['Footer'].format(
                     author=target.author.name)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
@@ -203,7 +203,6 @@ class Bot(object):
             logging.info('Sleeping…')
 #            time.sleep(30.0 - ((time.time() - starttime) % 30.0))
             time.sleep(32) # PRAW caches responses for 30s.
-
 
 if __name__ == '__main__':
     with open('config.yaml') as config_file:
