@@ -55,7 +55,7 @@ class Bot(object):
         for submission in gen:
             if not submission.link_flair_text:
                 continue
-            report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
+            report = {'source': SubmissionFlair, 'reason': submission.link_flair_text, 'author': 'Flair'}
             self.handle_report(subreddit, report, submission)
         
       #end addition
@@ -103,9 +103,9 @@ class Bot(object):
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-#                    author=target.author.name)
+                    author=target.author.name)
                 footer = sub['reasons']['Footer'].format(
-#                    author=target.author.name)
+                    author=target.author.name)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
