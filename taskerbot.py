@@ -106,7 +106,7 @@ class Bot(object):
                     author='Flair')
 #                    author=target.author.name)
                 footer = sub['reasons']['Footer'].format(
-                    author=target.author.name)
+                    author='Flair')
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
