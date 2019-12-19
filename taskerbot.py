@@ -191,7 +191,7 @@ class Bot(object):
 
     def run(self):
         while True:
-            logging.info('Running cycle…')
+            #logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
                     self.check_flairs(subreddit)
