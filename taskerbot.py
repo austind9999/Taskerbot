@@ -191,7 +191,7 @@ class Bot(object):
 
     def run(self):
         while True:
-            #logging.info('Running cycle…')
+            logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
                     self.check_flairs(subreddit)
@@ -200,8 +200,8 @@ class Bot(object):
                     self.check_mail()
 #                except Exception as exception:
 #                    logging.exception(exception)
-            logging.info('Sleeping…')
-            time.sleep(30.0 - ((time.time() - starttime) % 30.0))
+                logging.info('Sleeping…')
+                time.sleep(30.0 - ((time.time() - starttime) % 30.0))
 #            time.sleep(32) # PRAW caches responses for 30s.
 
 
