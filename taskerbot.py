@@ -162,7 +162,7 @@ class Bot(object):
                 report['author'], target.author.name))
 
     def log(self, subreddit, msg):
-        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
+        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs_flair']
         try:
             logs_content = logs_page.content_md
         except TypeError:
