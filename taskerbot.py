@@ -47,7 +47,7 @@ class Bot(object):
         
     #Addition for flair:
     def check_flairs(self, subreddit):
-        logging.info('Checking subreddit: %s…', subreddit)
+        logging.info('Checking subreddit flairs: %s…', subreddit)
         sub = self.subreddits[subreddit]
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(q='!rule', subreddit='memes')
