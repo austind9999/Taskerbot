@@ -195,9 +195,9 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_flairs(subreddit)
-                    self.check_comments(subreddit)
-                    self.check_reports(subreddit)
-                    self.check_mail()
+                   # self.check_comments(subreddit)
+                   # self.check_reports(subreddit)
+                   # self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
             logging.info('Sleeping…')
