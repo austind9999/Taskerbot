@@ -198,10 +198,10 @@ class Bot(object):
                    # self.check_comments(subreddit)
                    # self.check_reports(subreddit)
                     self.check_mail()
-#                except Exception as exception:
-#                    logging.exception(exception)
-                logging.info('Sleeping…')
-                time.sleep(30.0 - ((time.time() - starttime) % 30.0))
+                except Exception as exception:
+                    logging.exception(exception)
+            logging.info('Sleeping…')
+            time.sleep(30.0 - ((time.time() - starttime) % 30.0))
 #            time.sleep(32) # PRAW caches responses for 30s.
 
 
