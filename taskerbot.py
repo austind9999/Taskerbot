@@ -194,6 +194,7 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
+                    self.check_flairs(subreddit)
                     self.check_comments(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
