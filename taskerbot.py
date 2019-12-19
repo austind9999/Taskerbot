@@ -46,17 +46,31 @@ class Bot(object):
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
         
-    #Addition for flair:
-    def check_flairs(self, subreddit):
-        logging.info('Checking subreddit flairs: %s…', subreddit)
-        sub = self.subreddits[subreddit]
+    #Addition for flair - meme:
+    def check_flairs_meme(self, meme):
+        logging.info('Checking subreddit flairs: %s…', meme)
+        sub = self.subreddits[memes]
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(subreddit='memes', limit=2000)
         for submission in gen:
             if not submission.link_flair_text:
                 continue
             report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
-            self.handle_report(subreddit, report, submission)
+            self.handle_report(meme, report, submission)
+        
+      #end addition
+    
+    #Addition for flair - memes:
+    def check_flairs_memes(self, memes):
+        logging.info('Checking subreddit flairs: %s…', memes)
+        sub = self.subreddits[meme]
+        api = PushshiftAPI(self.r)
+        gen = api.search_submissions(subreddit='memes', limit=2000)
+        for submission in gen:
+            if not submission.link_flair_text:
+                continue
+            report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
+            self.handle_report(memes, report, submission)
         
       #end addition
                       
@@ -194,7 +208,8 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                    self.check_flairs(subreddit)
+                    self.check_flairs_meme(meme)
+                    self.check_flairs_memes(memes)
                    # self.check_comments(subreddit)
                    # self.check_reports(subreddit)
                     self.check_mail()
