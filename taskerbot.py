@@ -201,8 +201,8 @@ class Bot(object):
                 except Exception as exception:
                     logging.exception(exception)
             logging.info('Sleeping…')
-            time.sleep(30.0 - ((time.time() - starttime) % 30.0))
-#            time.sleep(32) # PRAW caches responses for 30s.
+#            time.sleep(30.0 - ((time.time() - starttime) % 30.0))
+            time.sleep(32) # PRAW caches responses for 30s.
 
 
 if __name__ == '__main__':
