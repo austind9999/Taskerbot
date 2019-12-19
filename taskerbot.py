@@ -4,7 +4,9 @@ import logging
 import re
 import sys
 import time
+import psaw
 
+from psaw import PushshiftAPI
 from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
@@ -43,6 +45,21 @@ class Bot(object):
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
         
+    #Addition for flair:
+    def check_flairs(self, subreddit):
+        logging.info('Checking subreddit: %s…', subreddit)
+        sub = self.subreddits[subreddit]
+        api = PushshiftAPI(self.r)
+        gen = api.search_submissions(q='!rule', subreddit='memes')
+        for submission in gen:
+            if not submission.link_flair_text:
+                continue
+                
+            report = {'source'" submission, 'reason': submission.link_flair_text}
+            self.handle_report(subreddit, report, submission.link_flair_text())
+        
+      #end addition
+                      
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
