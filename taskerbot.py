@@ -51,7 +51,7 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         sub = self.subreddits[subreddit]
         api = PushshiftAPI(self.r)
-        gen = api.search_submissions(subreddit='memes', limit=5000)
+        gen = api.search_submissions(subreddit='memes', limit=2000)
         for submission in gen:
             if not submission.link_flair_text:
                 continue
