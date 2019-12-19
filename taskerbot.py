@@ -56,7 +56,7 @@ class Bot(object):
                 continue
                 
             report = {'source': submission, 'reason': submission.link_flair_text}
-            self.handle_report(subreddit, report, link_flair_text)
+            self.handle_report(subreddit, report, submission)
         
       #end addition
                       
