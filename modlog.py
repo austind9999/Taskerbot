@@ -61,7 +61,7 @@ class Bot(object):
                     self.handle_report(subreddit, report, submission)
      #end addition
     #Check Vars
-    def check_vars(self, subreddit):
+    def check_vars444(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
             if log is None:
@@ -70,6 +70,15 @@ class Bot(object):
                 for log in self.r.subreddit(subreddit).mod.log():
                     print(vars(log))
                     break
+    #end check
+    
+    #Check Vars
+    def check_vars(self, subreddit):
+        logging.info('Checking subreddit modlog: %s…', subreddit)
+        for log in self.r.subreddit(subreddit).mod.log(limit=10): 
+            if log.action is ['editflair']:
+                print(vars(log))
+                break
     #end check
                       
     def check_comments(self, subreddit):
