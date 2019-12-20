@@ -52,12 +52,16 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         sub = self.subreddits[subreddit]
         api = PushshiftAPI(self.r)
-        gen = api.search_submissions(subreddit='memes', limit=2000)
-        for submission in gen:
-            if not submission.link_flair_text:
+        gen = api.search_submissions(subreddit='memes', limit=1000)
+#        for submission in gen:
+        for log in reddit.subreddit(subreddit).mod.log(limit=1000):
+            if log is None:
                 continue
-            report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
-            self.handle_report(subreddit, report, submission)
+            if log.type in ['editflair']:
+                if not submission.link_flair_text:
+                    continue
+                report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
+                self.handle_report(subreddit, report, submission)
         
       #end addition
                       
