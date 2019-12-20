@@ -77,7 +77,7 @@ class Bot(object):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=100): 
             if log.action is ['editflair']:
-                for item in reddit.subreddit("yoursub").mod.log(limit=100):
+                for item in self.r.subreddit(subreddit).mod.log(limit=100):
                     print(vars(item))
                     break
     #end check
