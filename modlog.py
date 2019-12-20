@@ -11,7 +11,7 @@ from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
-from praw.models.reddit import SubredditModeration
+from praw.models.reddit.subreddit import SubredditModeration
 import yaml
 
 starttime=time.time()
