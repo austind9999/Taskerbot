@@ -57,7 +57,7 @@ class Bot(object):
         for log in self.r.subreddit(subreddit).mod.log(limit=1000):
             if log is None:
                 continue
-            if log.type is ['editflair']:
+            if log.action is ['editflair']:
                 if not submission.link_flair_text:
                     continue
                 report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
