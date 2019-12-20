@@ -58,6 +58,7 @@ class Bot(object):
             mod = log_entry.mod
             if (action == "editflair"):
               #  print("Removal by " + mod + " found!")
+                print("Action: ", action)
                 print("Title: ", log_entry.target_title)
                 print("By: ", log_entry.target_author)
                 #print("Story: ", log_entry.target_body)
