@@ -62,7 +62,7 @@ class Bot(object):
      #end addition
     #Check Vars
     def check_vars(self, subreddit):
-        for item in reddit.subreddit(subreddit).mod.log():
+        for item in self.r.subreddit(subreddit).mod.log():
             print(vars(item))
             break
     #end check
