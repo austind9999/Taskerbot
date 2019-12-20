@@ -59,7 +59,13 @@ class Bot(object):
                         continue
                     report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
                     self.handle_report(subreddit, report, submission)
-      #end addition
+     #end addition
+    #Check Vars
+    def check_vars(self, subreddit):
+        for item in reddit.subreddit(subreddit).mod.log():
+        print(vars(item))
+        break
+    #end check
                       
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -197,6 +203,7 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_flairs(subreddit)
+                    self.check_vars(subreddit)
                    # self.check_comments(subreddit)
                    # self.check_reports(subreddit)
                     self.check_mail()
