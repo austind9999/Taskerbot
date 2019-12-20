@@ -56,7 +56,7 @@ class Bot(object):
         for log_entry in self.r.subreddit(subreddit).mod.log(limit=1000):
             action = log_entry.action
             mod = log_entry.mod
-            if (log.action == "editflair"):
+            if (action == "editflair"):
                 print("Removal by " + mod + " found!")
                 print("Title: ", log_entry.target_title)
                 print("By: ", log_entry.target_author)
