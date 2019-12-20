@@ -75,10 +75,11 @@ class Bot(object):
     #Check Vars
     def check_vars(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
-        for log in self.r.subreddit(subreddit).mod.log(limit=10): 
+        for log in self.r.subreddit(subreddit).mod.log(limit=100): 
             if log.action is ['editflair']:
-                print(vars(log))
-                break
+                for item in reddit.subreddit("yoursub").mod.log(limit=100):
+                    print(vars(item))
+                    break
     #end check
                       
     def check_comments(self, subreddit):
