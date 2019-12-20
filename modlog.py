@@ -61,6 +61,7 @@ class Bot(object):
             if log is None:
                 continue
             if log.action is ['editflair']:
+                submission = self.r.subreddit(subreddit).submission(id=log.editflair[3:])
                 for submission in self.r.subreddit(subreddit).mod.log(limit=1000):
                     if not submission.link_flair_text:
                         continue
