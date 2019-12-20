@@ -54,7 +54,7 @@ class Bot(object):
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(subreddit='memes', limit=1000)
 #        for submission in gen:
-        for log in reddit.subreddit(subreddit).mod.log(limit=1000):
+        for log in self.reddit.subreddit(subreddit).mod.log(limit=1000):
             if log is None:
                 continue
             if log.type in ['editflair']:
