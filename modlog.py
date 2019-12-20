@@ -53,18 +53,21 @@ class Bot(object):
         sub = self.subreddits[subreddit]
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(subreddit='memes', limit=1000)
-        for log_entry in self.r.subreddit(subreddit).mod.log(limit=1000):
+        for item in reddit.subreddit(subreddit).mod.log():
+            print(vars(item))
+            break
+#        for log_entry in self.r.subreddit(subreddit).mod.log(limit=1000):
             action = log_entry.action
             mod = log_entry.mod
-            if (action == "editflair"):
+#            if (action == "editflair"):
               #  print("Removal by " + mod + " found!")
-                print("Action: ", action)
-                print("Title: ", log_entry.target_title)
-                print("By: ", log_entry.target_author)
-                #print("Story: ", log_entry.target_body)
-                print("Link: https://www.reddit.com" + log_entry.target_permalink + "")
-                print("Id: ", log_entry.id)
-                print("-----------------------\n")
+#                print("Action: ", action)
+#                print("Title: ", log_entry.target_title)
+#                print("By: ", log_entry.target_author)
+#                #print("Story: ", log_entry.target_body)
+#                print("Link: https://www.reddit.com" + log_entry.target_permalink + "")
+#                print("Id: ", log_entry.id)
+#                print("-----------------------\n")
 #        for submission in gen:
 #        for log in self.r.subreddit(subreddit).mod.log(limit=1000):
 #            if log is None:
@@ -74,6 +77,7 @@ class Bot(object):
 #                    continue
 #                report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
 #                self.handle_report(subreddit, report, submission)
+
         
       #end addition
                       
