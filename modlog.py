@@ -53,7 +53,7 @@ class Bot(object):
         sub = self.subreddits[subreddit]
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(subreddit='memes', limit=1000)
-        for log in self.r.subreddit(subreddit).mod.log(limit=1000):
+        for log_entry in self.r.subreddit(subreddit).mod.log(limit=1000):
             action = log_entry.action
             mod = log_entry.mod
             if (log.action == "editflair"):
