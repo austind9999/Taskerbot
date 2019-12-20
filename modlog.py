@@ -54,7 +54,7 @@ class Bot(object):
         api = PushshiftAPI(self.r)
         gen = api.search_submissions(subreddit='memes', limit=1000)
         for item in self.r.subreddit(subreddit).mod.log():
-            print(vars(item))
+            print(vars(action))
             break
 #        for log_entry in self.r.subreddit(subreddit).mod.log(limit=1000):
             action = log_entry.action
