@@ -63,8 +63,8 @@ class Bot(object):
     #Check Vars
     def check_vars(self, subreddit):
         for item in reddit.subreddit(subreddit).mod.log():
-        print(vars(item))
-        break
+            print(vars(item))
+            break
     #end check
                       
     def check_comments(self, subreddit):
