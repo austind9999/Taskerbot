@@ -67,8 +67,8 @@ class Bot(object):
             if log is None:
                 continue
             if log.action is ['editflair']:
-                for item in self.r.subreddit(subreddit).mod.log():
-                    print(vars(item))
+                for log in self.r.subreddit(subreddit).mod.log():
+                    print(vars(log))
                     break
     #end check
                       
