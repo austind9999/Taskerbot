@@ -70,6 +70,9 @@ class Bot(object):
                 print(log.target_permalink)
                 print(log.target_fullname)
                 break
+                for log.target_permalink:
+                    print(submission.body)
+                    break
     #end check
     
     #Check Vars
