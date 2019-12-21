@@ -55,7 +55,7 @@ class Bot(object):
                 #print(submission.link_flair_text)
                 if not submission.link_flair_text:
                     continue
-                report = {'reason': submission.link_flair_text, 'author': mod}
+                report = {'source': submission, 'reason': submission.link_flair_text, 'author': mod}
                 self.handle_report(subreddit, report, submission)
         
     def check_comments(self, subreddit):
@@ -101,9 +101,9 @@ class Bot(object):
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-                    author= 'flair')
+                    author= 'Flair')
                 footer = sub['reasons']['Footer'].format(
-                    author= 'flair')
+                    author= 'Flair')
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
