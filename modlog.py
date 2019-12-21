@@ -53,12 +53,11 @@ class Bot(object):
         for log in self.r.subreddit(subreddit).mod.log(limit=1000):
             if log is None:
                 continue
-            if log.action is ['editflair']:
-                for permalink in self.r.subreddit(subreddit).mod.log(limit=1000):
-                    if not submission.link_flair_text:
-                        continue
-                    report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
-                    self.handle_report(subreddit, report, submission)
+#            if log.action is ['editflair']:
+#                for permalink in self.r.subreddit(subreddit).mod.log(limit=1000):
+            if permalink:
+            report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
+            self.handle_report(subreddit, report, submission)
      #end addition
     #Check Vars
     def check_vars444(self, subreddit):
