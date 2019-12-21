@@ -77,7 +77,7 @@ class Bot(object):
                # print(postname.link_flair_text)
                     #report = {'source': postname, 'reason': postname.link_flair_text, 'author': 'Flair'}
                     #self.handle_report(subreddit, report, postname)
-                #break
+                break
     #end check
                       
     def check_comments(self, subreddit):
