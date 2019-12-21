@@ -96,6 +96,7 @@ class Bot(object):
                 permalink = target.permalink
             elif isinstance(target, Comment):
                 logging.info('Removed comment.')
+                target.mod.remove()
                 permalink = target.permalink(fast=True)
 
             self.log(subreddit, '\n\n{} removed {}'.format(
