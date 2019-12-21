@@ -73,7 +73,9 @@ class Bot(object):
                 print(log.target_fullname)
                 postname = log.target_fullname
                 print(postname)
-                break
+                for postname in self.r.subreddit(subreddit).submissions(limit=100):
+                    print(postname.body)
+                #break
     #end check
                       
     def check_comments(self, subreddit):
