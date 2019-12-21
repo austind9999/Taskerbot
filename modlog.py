@@ -71,11 +71,13 @@ class Bot(object):
                 print(log.action)
                 print(log.target_permalink)
                 print(log.target_fullname)
-                postname = log.target_permalink
+                postname = log.target_fullname
                 print(postname)
-                    
-                for submission.permalink:
-                print(submission.link_flair_text)
+                s = postname
+                n = 3
+                a, s = s[:n], s[n:]
+                print(a)
+                print(s)
                     #report = {'source': postname, 'reason': postname.link_flair_text, 'author': 'Flair'}
                     #self.handle_report(subreddit, report, postname)
                 break
