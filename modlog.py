@@ -6,7 +6,6 @@ import sys
 import time
 import psaw
 
-from psaw import PushshiftAPI
 from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
@@ -50,6 +49,8 @@ class Bot(object):
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
+            mod = log.mod.name
+            print(mod)
             if log.target_fullname.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 #print(submission.link_flair_text)
