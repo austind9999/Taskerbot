@@ -65,6 +65,8 @@ class Bot(object):
         for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
             print(vars(log))
             print(log.mod.name)
+            print(log.action)
+            print(log.target_permalink)
             break
     #end check
     
