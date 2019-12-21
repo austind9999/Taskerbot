@@ -67,6 +67,7 @@ class Bot(object):
             print(log.mod.name)
             print(log.action)
             print(log.target_permalink)
+            print(log.target_fullname)
             break
     #end check
     
