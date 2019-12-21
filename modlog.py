@@ -50,7 +50,8 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
             mod = log.mod.name
-            if log.target_fullname.startswith("t3_"):
+            if log.target_fullname:
+                    #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 #print(submission.link_flair_text)
                 if not submission.link_flair_text:
