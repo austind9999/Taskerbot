@@ -63,10 +63,9 @@ class Bot(object):
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
-            if log.action is 'editflair':
-                print(vars(log))
-                print(item.mod.name)
-                break
+            print(vars(log))
+            print(item.mod.name)
+            break
     #end check
     
     #Check Vars
