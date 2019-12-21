@@ -48,12 +48,14 @@ class Bot(object):
         logging.info('Reasons loaded.')
         
     def check_flairs(self, subreddit):
+        logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
             if log.target_fullname.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
-           #     print(submission.link_flair_text)
-                report = {'source': submission, 'reason': submission.link_flair_text,
-                          'author': 'Flair'}
+                print(submission.link_flair_text)
+                if not submission.link_flair_text:
+                    continue
+                report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
                 self.handle_report(subreddit, report, submission)
         
     def check_comments(self, subreddit):
