@@ -62,7 +62,7 @@ class Bot(object):
     #Check Vars
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
-        for log in self.r.subreddit(subreddit).mod.log(): 
+        for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
             if log is None:
                 continue
             if log.action == 'editflair':
@@ -73,7 +73,7 @@ class Bot(object):
                 print(log.target_fullname)
                 postname = log.target_fullname
                 print(postname)
-                for postname in self.r.subreddit(subreddit).submissions(limit=100):
+                for postname in self.r.subreddit(subreddit).submissions():
                     print(postname.body)
                 #break
     #end check
