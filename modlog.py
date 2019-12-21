@@ -55,7 +55,7 @@ class Bot(object):
                 continue
 #            if log.action is ['editflair']:
 #                for permalink in self.r.subreddit(subreddit).mod.log(limit=1000):
-            if permalink:
+            if log.permalink:
                 report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
                 self.handle_report(subreddit, report, submission)
      #end addition
