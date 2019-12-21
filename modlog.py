@@ -78,7 +78,7 @@ class Bot(object):
                 a, s = s[:n], s[n:]
                 print(a)
                 print(s)
-                for post in self.r.subreddit(subreddit).submissions(postname.split('_')[1]):
+                for post in self.r.subreddit(subreddit).submissions(a):
                     print(post.link_text_flair)
                     #report = {'source': postname, 'reason': postname.link_flair_text, 'author': 'Flair'}
                     #self.handle_report(subreddit, report, postname)
