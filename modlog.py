@@ -71,9 +71,9 @@ class Bot(object):
                 print(log.action)
                 print(log.target_permalink)
                 print(log.target_fullname)
-                break
                 postname = log.target_fullname
                 print(postname)
+                break
     #end check
                       
     def check_comments(self, subreddit):
