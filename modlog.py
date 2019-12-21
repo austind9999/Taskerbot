@@ -60,7 +60,7 @@ class Bot(object):
                     self.handle_report(subreddit, report, log)
      #end addition
     #Check Vars
-    def check_flairs(self, subreddit):
+    def check_flairssss(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
             if log is None:
@@ -84,7 +84,17 @@ class Bot(object):
                     #self.handle_report(subreddit, report, postname)
                 break
     #end check
-                      
+        
+    def check_flairs(self, subreddit):
+        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
+            # only log ids can be persistently cached, not submission ids
+            if str(log.id) in LOG_IDS:
+                continue
+            try:
+                if log.target_fullname.startswith("t3_"):
+                    submission = self.r.submission(id=log.target_fullname[3:])
+                    print(submission.link_flair_text)
+        
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
