@@ -49,10 +49,12 @@ class Bot(object):
         
     def check_flairs(self, subreddit):
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
-           # if str(log.id) in LOG_IDS:
             if log.target_fullname.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
-                print(submission.link_flair_text)
+           #     print(submission.link_flair_text)
+                report = {'source': submission, 'reason': submission.link_flair_text,
+                          'author': 'Flair'}
+                self.handle_report(subreddit, report, submission)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -97,10 +99,9 @@ class Bot(object):
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-                    author='Flair')
-#                    author=target.author.name)
+                    author=target.author.name)
                 footer = sub['reasons']['Footer'].format(
-                    author='Flair')
+                    author=target.author.name)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
@@ -190,9 +191,6 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_flairs(subreddit)
-                   # self.check_vars(subreddit)
-                   # self.check_comments(subreddit)
-                   # self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
