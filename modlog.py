@@ -55,7 +55,7 @@ class Bot(object):
                 #print(submission.link_flair_text)
                 if not submission.link_flair_text:
                     continue
-                report = {'source': submission, 'reason': submission.link_flair_text, 'author': mod}
+                report = {'reason': submission.link_flair_text, 'author': mod}
                 self.handle_report(subreddit, report, submission)
         
     def check_comments(self, subreddit):
@@ -95,7 +95,7 @@ class Bot(object):
                 msg = '{}\n\n{}'.format(msg, note)
 
             if 'source' in report:
-#                report['source'].mod.remove()
+                report['source'].mod.remove()
             target.mod.remove()
 
             if isinstance(target, Submission):
