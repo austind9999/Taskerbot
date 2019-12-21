@@ -64,7 +64,7 @@ class Bot(object):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
             print(vars(log))
-            print(item.mod.name)
+            print(log.mod.name)
             break
     #end check
     
