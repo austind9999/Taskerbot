@@ -52,7 +52,7 @@ class Bot(object):
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
             if log.target_fullname.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
-                print(submission.link_flair_text)
+                #print(submission.link_flair_text)
                 if not submission.link_flair_text:
                     continue
                 report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
