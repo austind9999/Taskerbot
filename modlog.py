@@ -71,7 +71,7 @@ class Bot(object):
                 print(log.action)
                 print(log.target_permalink)
                 print(log.target_fullname)
-                postname = log.target_fullname
+                postname = log.target_permalink
                 print(postname)
                     
                 for submission in postname:
