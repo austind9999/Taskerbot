@@ -48,7 +48,7 @@ class Bot(object):
         logging.info('Reasons loaded.')
         
     #Addition for flair - meme:
-    def check_flairs(self, subreddit):
+    def check_flairsss(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=1000):
             if log is None:
@@ -60,19 +60,20 @@ class Bot(object):
                     self.handle_report(subreddit, report, log)
      #end addition
     #Check Vars
-    def check_vars444(self, subreddit):
+    def check_flairs(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=1000): 
             if log is None:
                 continue
-            if log.action is ['editflair']:
+            if log.action is 'editflair':
                 for log in self.r.subreddit(subreddit).mod.log():
                     print(vars(log))
+                    print(item.mod.name)
                     break
     #end check
     
     #Check Vars
-    def check_vars(self, subreddit):
+    def check_fdsaf(self, subreddit):
         logging.info('Checking subreddit modlog: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(limit=100): 
  #           if log.action is ['editflair']:
