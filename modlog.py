@@ -49,11 +49,10 @@ class Bot(object):
         
     def check_flairs(self, subreddit):
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
-            if str(log.id) in LOG_IDS:
-                continue
-                if log.target_fullname.startswith("t3_"):
-                    submission = self.r.submission(id=log.target_fullname[3:])
-                    print(submission.link_flair_text)
+           # if str(log.id) in LOG_IDS:
+            if log.target_fullname.startswith("t3_"):
+                submission = self.r.submission(id=log.target_fullname[3:])
+                print(submission.link_flair_text)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
