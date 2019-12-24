@@ -1,4 +1,4 @@
-Taskerbot
+TaskerbotRecode
 =========
 
 A reddit bot to make moderation easier, especially on mobile.
@@ -9,7 +9,7 @@ via the bot.
 Usage
 =====
 
-Taskerbot can be invoked by any comment or moderator report containing one of
+TaskerbotRecode can be invoked by any comment, flair, or moderator report containing one of
 the following commands:
 
 - ``!rule {reason} [note]``: **removes a thread, leaving an appropriate flair
@@ -37,16 +37,16 @@ comment (as opposed to a moderator report), it will automatically remove it.
 
   Taskerbot loads the subreddit's list of moderators and removal reasons at
   startup. To refresh these, send Taskerbot a message containing ``!refresh
-  Subreddit`` (e.g. ``!refresh Android`` to reload ``/r/Android``'s
+  Subreddit`` (e.g. ``!refresh memes`` to reload ``/r/memes``'s
   configuration).
 
   Note that this is case sensitive, so make sure it's the same as what's in the
   configuration file (see `Configuration file`_).
 
-Only moderator reports and comments made by/mails sent by the subreddit's
+Only moderator reports, flairs, and comments made by/mails sent by the subreddit's
 moderators are checked.
 
-PS. Reddit silently ignores reports on removed posts, so Taskerbot won't see
+PS. Reddit silently ignores reports on removed posts, so TaskerbotRecode won't see
 those.
 
 Setup
@@ -55,7 +55,7 @@ Setup
 Dependencies
 ------------
 
-Taskerbot requires Python 3. For a list of required Python 3 libraries, see
+TaskerbotRecode requires Python 3. For a list of required Python 3 libraries, see
 ``requirements.txt``.
 
 The required Heroku__ files are provided with this project if you're interested
@@ -70,7 +70,7 @@ __ https://heroku.com/
 Requirements
 ------------
 
-``/u/Taskerbot`` doesn't accept new additions as we want to keep an acceptable
+``/u/MemesMod`` doesn't accept new additions as we want to keep an acceptable
 load. That being said, you're free to run your own instance.
 
 You'll first want to create a new account and make it a mod of your subreddit.
@@ -118,8 +118,8 @@ This step must be performed for every new subreddit you want Taskerbot to
 patrol.
 
 1. Create a new wiki page on the subreddit called ``taskerbot``.
-   For example, if you want Taskerbot to patrol ``/r/Android``, you must create
-   ``/r/Android/wiki/taskerbot``.
+   For example, if you want Taskerbot to patrol ``/r/memes``, you must create
+   ``/r/memes/wiki/taskerbot``.
 2. Fill the page with the reasons you want -- ``Header``, ``Footer`` and
    ``Generic`` are required reasons so make sure you include at least those:
 
@@ -174,7 +174,7 @@ patrol.
    what the removed thread's flair is set to, and ``Message``, which is the
    comment Taskerbot will leave in the thread.
 
-   Also note that Taskerbot will automatically replace all instances of
+   Also note that TaskerbotRecode will automatically replace all instances of
    ``{author}`` in the ``Header`` and ``Footer`` with the author's username.
 
    You can check `/r/Android's taskerbot wiki page`__ for a real example (click
