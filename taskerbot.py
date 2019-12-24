@@ -9,6 +9,7 @@ from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
+from praw.models.reddit.subreddit import SubredditModeration
 import yaml
 
 
@@ -42,6 +43,19 @@ class Bot(object):
         sub['reasons'] = yaml.load(html.unescape(
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
+        
+    def check_flairs(self, subreddit):
+        logging.info('Checking subreddit flairs: %s…', subreddit)
+        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
+            mod = log.mod.name
+            if log.target_fullname:
+                    #.startswith("t3_"):
+                submission = self.r.submission(id=log.target_fullname[3:])
+                #print(submission.link_flair_text)
+                if not submission.link_flair_text:
+                    continue
+                report = {'source': submission, 'reason': submission.link_flair_text, 'author': mod}
+                self.handle_report(subreddit, report, submission)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -79,7 +93,7 @@ class Bot(object):
             if note:
                 msg = '{}\n\n{}'.format(msg, note)
 
-            if 'source' in report:
+            if 'source' in report is not None:
                 report['source'].mod.remove()
             target.mod.remove()
 
@@ -178,6 +192,7 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
+                    self.check_flairs(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
