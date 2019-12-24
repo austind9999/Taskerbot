@@ -4,16 +4,13 @@ import logging
 import re
 import sys
 import time
-import psaw
 
-from psaw import PushshiftAPI
 from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
 import yaml
 
-starttime=time.time()
 
 class Bot(object):
 
@@ -46,20 +43,6 @@ class Bot(object):
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
         
-    #Addition for flair - meme:
-    def check_flairs(self, subreddit):
-        logging.info('Checking subreddit flairs: %s…', subreddit)
-        sub = self.subreddits[subreddit]
-        api = PushshiftAPI(self.r)
-        gen = api.search_submissions(subreddit='memes', limit=2000)
-        for submission in gen:
-            if not submission.link_flair_text:
-                continue
-            report = {'source': submission, 'reason': submission.link_flair_text, 'author': 'Flair'}
-            self.handle_report(subreddit, report, submission)
-        
-      #end addition
-                      
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
@@ -103,10 +86,9 @@ class Bot(object):
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-                    author='Flair')
-#                    author=target.author.name)
+                    author=target.author.name)
                 footer = sub['reasons']['Footer'].format(
-                    author='Flair')
+                    author=target.author.name)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
@@ -162,7 +144,7 @@ class Bot(object):
                 report['author'], target.author.name))
 
     def log(self, subreddit, msg):
-        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs_flair']
+        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
         try:
             logs_content = logs_page.content_md
         except TypeError:
@@ -195,15 +177,14 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                    self.check_flairs(subreddit)
-                   # self.check_comments(subreddit)
-                   # self.check_reports(subreddit)
+                    self.check_comments(subreddit)
+                    self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
             logging.info('Sleeping…')
-#            time.sleep(30.0 - ((time.time() - starttime) % 30.0))
             time.sleep(32) # PRAW caches responses for 30s.
+
 
 if __name__ == '__main__':
     with open('config.yaml') as config_file:
