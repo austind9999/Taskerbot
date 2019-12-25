@@ -51,7 +51,6 @@ class Bot(object):
             if log.target_fullname:
                     #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
-                #print(submission.link_flair_text)
                 if not submission.link_flair_text:
                     continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
