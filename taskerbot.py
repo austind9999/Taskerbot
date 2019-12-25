@@ -97,7 +97,7 @@ class Bot(object):
                 report['source'].mod.remove()
             target.mod.remove()
 
-            if not target.author:
+            if target.author is None:
                 authorname = '[deleted]'
             if target.author:
                 authorname = target.author.name
