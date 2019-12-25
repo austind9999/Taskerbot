@@ -99,7 +99,7 @@ class Bot(object):
 
             if not target.author:
                 author = '[deleted]'
-            else:
+            if target.author:
                 author = target.author.name
             
             if isinstance(target, Submission):
