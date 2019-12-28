@@ -5,9 +5,7 @@ import re
 import sys
 import time
 import datetime
-mylist = []
-today = datetime.date.today()
-mylist.append(today)
+today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 from praw import Reddit
 from praw.models.reddit.comment import Comment
@@ -117,7 +115,7 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\nAt mylist[0] - {} removed {}'.format(
+            self.log(subreddit, '\n\nAt 'today' - {} removed {}'.format(
                 report['author'], permalink))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
