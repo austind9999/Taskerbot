@@ -114,8 +114,8 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\n{} removed {} at {}'.format(
-                report['author'], permalink, today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+            self.log(subreddit, '\n\n{} removed {}'.format(
+                report['author'], permalink))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
             if 'source' in report:
