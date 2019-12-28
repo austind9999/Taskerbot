@@ -5,7 +5,6 @@ import re
 import sys
 import time
 import datetime
-today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 from praw import Reddit
 from praw.models.reddit.comment import Comment
@@ -116,7 +115,7 @@ class Bot(object):
                 permalink = target.permalink(fast=True)
 
             self.log(subreddit, '\n\n{} removed {} at {}'.format(
-                report['author'], permalink, today))
+                report['author'], permalink, today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
             if 'source' in report:
