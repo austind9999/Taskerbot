@@ -101,13 +101,14 @@ class Bot(object):
            #     authorname = target.author.name 
            # if target.authorname is None:
            #     authorname = "OP"
+            authorname = "OP"
             
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-                    author="author")
+                    author=authorname)
                 footer = sub['reasons']['Footer'].format(
-                    author="author")
+                    author=authorname)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
