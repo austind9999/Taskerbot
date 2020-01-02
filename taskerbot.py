@@ -97,7 +97,10 @@ class Bot(object):
                 report['source'].mod.remove()
             target.mod.remove()
 
-            authorname = target.author.name if target.author is not None else "OP"
+            if target.authorname is not None:
+                authorname = target.author.name 
+            if target.authorname is None:
+                authorname = "OP"
             
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
