@@ -105,9 +105,9 @@ class Bot(object):
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-                    author=authorname)
+                    modname=mod)
                 footer = sub['reasons']['Footer'].format(
-                    author=authorname)
+                    modname=mod)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
@@ -120,47 +120,47 @@ class Bot(object):
             self.log(subreddit, '\n\n{} removed {}'.format(
                 report['author'], permalink))
         # Check for !spam command.
-        if report['reason'].lower().startswith('!spam'):
-            if 'source' in report:
-                report['source'].mod.remove()
-            target.mod.remove(spam=True)
-            if isinstance(target, Submission):
-                logging.info('Removed submission (spam).')
-                permalink = target.permalink
-            elif isinstance(target, Comment):
-                logging.info('Removed comment (spam).')
-                permalink = target.permalink(fast=True)
-            self.log(subreddit, '\n\n{} removed {} (spam)'.format(
-                report['author'], permalink))
+      #  if report['reason'].lower().startswith('!spam'):
+      #      if 'source' in report:
+      #          report['source'].mod.remove()
+      #      target.mod.remove(spam=True)
+      #      if isinstance(target, Submission):
+      #          logging.info('Removed submission (spam).')
+      #          permalink = target.permalink
+      #      elif isinstance(target, Comment):
+      #          logging.info('Removed comment (spam).')
+      #          permalink = target.permalink(fast=True)
+      #      self.log(subreddit, '\n\n{} removed {} (spam)'.format(
+      #          report['author'], permalink))
         # Check for !ban command.
-        temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
-                          re.IGNORECASE) # Temporary ban
-        perma_match = re.search(r'!ban "([^"]*)" "([^"]*)"', report['reason'],
-                          re.IGNORECASE) # Permanent ban
-        if (temp_match or perma_match):
-            if temp_match:
-                duration = temp_match.group(1)
-                reason = temp_match.group(2)
-                msg = temp_match.group(3)
-                logging.info('Ban (%s: %s -- %s) matched.', duration, reason,
-                             msg)
-                self.r.subreddit(subreddit).banned.add(
-                    target.author.name, duration=duration, note=reason,
-                    ban_message=msg)
-            if perma_match:
-                reason = perma_match.group(1)
-                msg = perma_match.group(2)
-                logging.info('Ban (Permanent: %s -- %s) matched.', reason,
-                             msg)
-                self.r.subreddit(subreddit).banned.add(
-                    target.author.name, note=reason,
-                    ban_message=msg)
-            if 'source' in report:
-                report['source'].mod.remove()
-            target.mod.remove()
-            logging.info('User banned.')
-            self.log(subreddit, '\n\n{} banned u/{}'.format(
-                report['author'], target.author.name))
+      #  temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
+      #                    re.IGNORECASE) # Temporary ban
+      #  perma_match = re.search(r'!ban "([^"]*)" "([^"]*)"', report['reason'],
+      #                    re.IGNORECASE) # Permanent ban
+      #  if (temp_match or perma_match):
+      #      if temp_match:
+      #          duration = temp_match.group(1)
+      #          reason = temp_match.group(2)
+      #          msg = temp_match.group(3)
+      #          logging.info('Ban (%s: %s -- %s) matched.', duration, reason,
+      #                       msg)
+      #          self.r.subreddit(subreddit).banned.add(
+      #              target.author.name, duration=duration, note=reason,
+      #              ban_message=msg)
+      #      if perma_match:
+      #          reason = perma_match.group(1)
+      #          msg = perma_match.group(2)
+      #          logging.info('Ban (Permanent: %s -- %s) matched.', reason,
+      #                       msg)
+      #          self.r.subreddit(subreddit).banned.add(
+      #              target.author.name, note=reason,
+      #              ban_message=msg)
+      #      if 'source' in report:
+      #          report['source'].mod.remove()
+      #      target.mod.remove()
+      #      logging.info('User banned.')
+      #      self.log(subreddit, '\n\n{} banned u/{}'.format(
+      #          report['author'], target.author.name))
 
     def log(self, subreddit, msg):
         logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
@@ -196,9 +196,9 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                    self.check_comments(subreddit)
+                  #  self.check_comments(subreddit)
                     self.check_flairs(subreddit)
-                    self.check_reports(subreddit)
+                  #  self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
