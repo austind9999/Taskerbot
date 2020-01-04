@@ -107,7 +107,7 @@ class Bot(object):
                 header = sub['reasons']['Header'].format(
                     modname=mod)
                 footer = sub['reasons']['Footer'].format(
-                    modname=mod)
+                    modname=report['author'])
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
