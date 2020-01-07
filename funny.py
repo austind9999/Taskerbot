@@ -112,17 +112,10 @@ class Bot(object):
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
                 target.mod.flair(sub['reasons'][rule]['Flair'])
-                if target.permalink is not None:
-                    permalink = target.permalink
-                if target.permalink is None:
-                    permalink = "null"
+                permalink = target.permalink
             elif isinstance(target, Comment):
                 logging.info('Removed comment.')
-                if target.permalink is not None:
-                    permalink = target.permalink(fast=True)
-                if target.permalink is None:
-                    permalink = "null"
-               # permalink = target.permalink(fast=True)
+                permalink = target.permalink(fast=True)
 
             self.log(subreddit, '\n\n{} removed {}'.format(
                 report['author'], permalink))
