@@ -170,7 +170,8 @@ class Bot(object):
             logs_content = logs_page.content_md
         except TypeError:
             logs_content = ""
-        logs_page.edit("{}{}  \n".format(logs_content, msg))
+       # logs_page.edit("{}{}  \n".format(logs_content, msg))
+        logs_page.edit("{}{}".format(logs_content, msg))
 
     def check_mail(self):
         logging.info('Checking mail…')
