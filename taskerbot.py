@@ -102,7 +102,7 @@ class Bot(object):
         #    if target.author.name is not None:
         #        authorname = target.author.name 
         #    if target.author.name is None: 
-                authorname = "OP"
+            authorname = "OP"
             
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
