@@ -47,17 +47,15 @@ class Bot(object):
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
-        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=20):
+        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
             mod = log.mod.name
-            if log.target_fullname is None:
-                continue
-            if log.target_fullname is not None:
-                    #.startswith("t3_"):
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+            if target_fullname is not None and target_fullname.startswith('t3_'):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 if not submission.link_flair_text:
                     continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
-                self.handle_report(subreddit, report, submission)
+                self.handle_report(subreddit, report, submission, today)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -80,7 +78,7 @@ class Bot(object):
                       'author': reported_submission.mod_reports[0][1]}
             self.handle_report(subreddit, report, reported_submission)
 
-    def handle_report(self, subreddit, report, target):
+    def handle_report(self, subreddit, report, target, today):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
@@ -109,19 +107,18 @@ class Bot(object):
                 header = sub['reasons']['Header'].format(
                     author=authorname)
                 footer = sub['reasons']['Footer'].format(
-                    modname=report['author'])
+                    author=authorname)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
                 target.mod.flair(sub['reasons'][rule]['Flair'])
-#                permalink = target.permalink
+                permalink = target.permalink
             elif isinstance(target, Comment):
                 logging.info('Removed comment.')
-#                permalink = target.permalink(fast=True)
-            permalink = target.permalink
-#            self.log(subreddit, f"{report['author']} removed {permalink}")
-            self.log(subreddit, '\n\n{} removed {}'.format(
-                report['author'], permalink))
+                permalink = target.permalink(fast=True)
+
+            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
+                report['author'], permalink, today))
         # Check for !spam command.
       #  if report['reason'].lower().startswith('!spam'):
       #      if 'source' in report:
