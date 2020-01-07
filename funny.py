@@ -114,13 +114,14 @@ class Bot(object):
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
                 target.mod.flair(sub['reasons'][rule]['Flair'])
-                permalink = target.permalink
+#                permalink = target.permalink
             elif isinstance(target, Comment):
                 logging.info('Removed comment.')
-                permalink = target.permalink(fast=True)
-
-            self.log(subreddit, '\n\n{} removed {}'.format(
-                report['author'], permalink))
+#                permalink = target.permalink(fast=True)
+            permalink = target.permalink
+            self.log(subreddit, f"\n\n{report['author']} removed {permalink}")
+#            self.log(subreddit, '\n\n{} removed {}'.format(
+#                report['author'], permalink))
         # Check for !spam command.
       #  if report['reason'].lower().startswith('!spam'):
       #      if 'source' in report:
@@ -164,14 +165,30 @@ class Bot(object):
       #      self.log(subreddit, '\n\n{} banned u/{}'.format(
       #          report['author'], target.author.name))
 
+ #   def log(self, subreddit, msg):
+ #       logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
+ #       try:
+ #           logs_content = logs_page.content_md
+ #       except TypeError:
+ #           logs_content = ""
+ #       logs_page.edit("{}{}  \n".format(logs_content, msg))
+
     def log(self, subreddit, msg):
-        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
+        if not self.logging_enabled:
+            return
+        logs_page = self.r.subreddit(subreddit).wiki["taskerbot_logs"]
         try:
             logs_content = logs_page.content_md
         except TypeError:
             logs_content = ""
-       # logs_page.edit("{}{}  \n".format(logs_content, msg))
-        logs_page.edit("{}{}".format(logs_content, msg))
+        except NotFound:
+            logging.warning(
+                "r/%s/wiki/taskerbot_logs not found, disabling logging",
+                subreddit,
+            )
+            self.logging_enabled = False
+            return
+        logs_page.edit(f"{logs_content}{msg}  \n")
 
     def check_mail(self):
         logging.info('Checking mail…')
