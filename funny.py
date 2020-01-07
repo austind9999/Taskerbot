@@ -188,7 +188,7 @@ class Bot(object):
             )
             self.logging_enabled = False
             return
-        logs_page.edit(f"{logs_content}{msg}  \n")
+        logs_page.edit("{}{}  \n".format(logs_content, msg))
 
     def check_mail(self):
         logging.info('Checking mail…')
