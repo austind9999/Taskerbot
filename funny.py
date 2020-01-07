@@ -73,15 +73,15 @@ class Bot(object):
     def check_reports(self, subreddit):
         logging.info('Checking subreddit reports: %s…', subreddit)
         for reported_submission in self.r.subreddit(subreddit).mod.reports():
-            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+           # today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if not reported_submission.mod_reports:
                 continue
 
             report = {'reason': reported_submission.mod_reports[0][0],
                       'author': reported_submission.mod_reports[0][1]}
-            self.handle_report(subreddit, report, reported_submission, today)
+            self.handle_report(subreddit, report, reported_submission)
 
-    def handle_report(self, subreddit, report, target, today):
+    def handle_report(self, subreddit, report, target):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
@@ -121,7 +121,7 @@ class Bot(object):
                 permalink = target.permalink(fast=True)
 
             self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
-                report['author'], permalink, today))
+                report['author'], permalink))
         # Check for !spam command.
       #  if report['reason'].lower().startswith('!spam'):
       #      if 'source' in report:
