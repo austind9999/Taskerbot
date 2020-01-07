@@ -49,7 +49,6 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
             mod = log.mod.name
-          #  today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if log.target_fullname:
                     #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
@@ -62,7 +61,6 @@ class Bot(object):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
         for comment in self.r.subreddit(subreddit).comments(limit=100):
-           # today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if (comment.banned_by or not comment.author or
                     comment.author.name not in sub['mods']):
                 continue
@@ -73,7 +71,6 @@ class Bot(object):
     def check_reports(self, subreddit):
         logging.info('Checking subreddit reports: %s…', subreddit)
         for reported_submission in self.r.subreddit(subreddit).mod.reports():
-           # today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if not reported_submission.mod_reports:
                 continue
 
@@ -120,7 +117,7 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
+            self.log(subreddit, '\n\n{} removed {}'.format(
                 report['author'], permalink))
         # Check for !spam command.
       #  if report['reason'].lower().startswith('!spam'):
@@ -133,8 +130,8 @@ class Bot(object):
       #      elif isinstance(target, Comment):
       #          logging.info('Removed comment (spam).')
       #          permalink = target.permalink(fast=True)
-      #      self.log(subreddit, '\n\n{} removed {} (spam) on {} EST'.format(
-      #          report['author'], permalink, today))
+      #      self.log(subreddit, '\n\n{} removed {} (spam)'.format(
+      #          report['author'], permalink))
         # Check for !ban command.
       #  temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
       #                    re.IGNORECASE) # Temporary ban
@@ -162,8 +159,8 @@ class Bot(object):
       #          report['source'].mod.remove()
       #      target.mod.remove()
       #      logging.info('User banned.')
-      #      self.log(subreddit, '\n\n{} banned u/{} on {} EST'.format(
-      #          report['author'], target.author.name, today))
+      #      self.log(subreddit, '\n\n{} banned u/{}'.format(
+      #          report['author'], target.author.name))
 
     def log(self, subreddit, msg):
         logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
