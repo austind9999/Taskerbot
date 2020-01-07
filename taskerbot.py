@@ -62,24 +62,26 @@ class Bot(object):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
         for comment in self.r.subreddit(subreddit).comments(limit=100):
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if (comment.banned_by or not comment.author or
                     comment.author.name not in sub['mods']):
                 continue
             report = {'source': comment, 'reason': comment.body,
                       'author': comment.author.name}
-            self.handle_report(subreddit, report, comment.parent())
+            self.handle_report(subreddit, report, comment.parent(), today)
 
     def check_reports(self, subreddit):
         logging.info('Checking subreddit reports: %s…', subreddit)
         for reported_submission in self.r.subreddit(subreddit).mod.reports():
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if not reported_submission.mod_reports:
                 continue
 
             report = {'reason': reported_submission.mod_reports[0][0],
                       'author': reported_submission.mod_reports[0][1]}
-            self.handle_report(subreddit, report, reported_submission)
+            self.handle_report(subreddit, report, reported_submission, today)
 
-    def handle_report(self, subreddit, report, target, time):
+    def handle_report(self, subreddit, report, target, today):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
