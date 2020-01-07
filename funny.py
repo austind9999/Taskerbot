@@ -49,26 +49,26 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
             mod = log.mod.name
-            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+          #  today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if log.target_fullname:
                     #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 if not submission.link_flair_text:
                     continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
-                self.handle_report(subreddit, report, submission, today)
+                self.handle_report(subreddit, report, submission)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
         for comment in self.r.subreddit(subreddit).comments(limit=100):
-            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+           # today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if (comment.banned_by or not comment.author or
                     comment.author.name not in sub['mods']):
                 continue
             report = {'source': comment, 'reason': comment.body,
                       'author': comment.author.name}
-            self.handle_report(subreddit, report, comment.parent(), today)
+            self.handle_report(subreddit, report, comment.parent())
 
     def check_reports(self, subreddit):
         logging.info('Checking subreddit reports: %s…', subreddit)
