@@ -96,8 +96,8 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-        #    self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
-        #        report['author'], permalink, today))
+            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
+                report['author'], permalink, today))
 
     def log(self, subreddit, msg):
         logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
@@ -133,9 +133,7 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                  #  self.check_comments(subreddit)
                     self.check_flairs(subreddit)
-                  #  self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
