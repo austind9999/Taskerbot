@@ -174,20 +174,20 @@ class Bot(object):
  #       logs_page.edit("{}{}  \n".format(logs_content, msg))
 
     def log(self, subreddit, msg):
-        if not self.logging_enabled:
-            return
+#        if not self.logging_enabled:
+#            return
         logs_page = self.r.subreddit(subreddit).wiki["taskerbot_logs"]
         try:
             logs_content = logs_page.content_md
         except TypeError:
             logs_content = ""
-        except NotFound:
-            logging.warning(
-                "r/%s/wiki/taskerbot_logs not found, disabling logging",
-                subreddit,
-            )
-            self.logging_enabled = False
-            return
+#        except NotFound:
+#            logging.warning(
+#                "r/%s/wiki/taskerbot_logs not found, disabling logging",
+#                subreddit,
+#            )
+#            self.logging_enabled = False
+#            return
         logs_page.edit("{}{}  \n".format(logs_content, msg))
 
     def check_mail(self):
