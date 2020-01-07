@@ -53,7 +53,7 @@ class Bot(object):
             if log.target_fullname:
                     #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
-                if not submission.link_flair_text:
+                if submission.link_flair_text is None:
                     continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
                 self.handle_report(subreddit, report, submission, today)
@@ -201,7 +201,7 @@ class Bot(object):
                 try:
                     self.check_comments(subreddit)
                     self.check_flairs(subreddit)
-                   # self.check_reports(subreddit)
+                    self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
