@@ -56,27 +56,6 @@ class Bot(object):
                     continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
                 self.handle_report(subreddit, report, submission, today)
-        
-    def check_comments(self, subreddit):
-        logging.info('Checking subreddit: %s…', subreddit)
-        sub = self.subreddits[subreddit]
-        for comment in self.r.subreddit(subreddit).comments(limit=100):
-            if (comment.banned_by or not comment.author or
-                    comment.author.name not in sub['mods']):
-                continue
-            report = {'source': comment, 'reason': comment.body,
-                      'author': comment.author.name}
-            self.handle_report(subreddit, report, comment.parent())
-
-    def check_reports(self, subreddit):
-        logging.info('Checking subreddit reports: %s…', subreddit)
-        for reported_submission in self.r.subreddit(subreddit).mod.reports():
-            if not reported_submission.mod_reports:
-                continue
-
-            report = {'reason': reported_submission.mod_reports[0][0],
-                      'author': reported_submission.mod_reports[0][1]}
-            self.handle_report(subreddit, report, reported_submission)
 
     def handle_report(self, subreddit, report, target, today):
         sub = self.subreddits[subreddit]
@@ -119,72 +98,13 @@ class Bot(object):
 
             self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
                 report['author'], permalink, today))
-        # Check for !spam command.
-      #  if report['reason'].lower().startswith('!spam'):
-      #      if 'source' in report:
-      #          report['source'].mod.remove()
-      #      target.mod.remove(spam=True)
-      #      if isinstance(target, Submission):
-      #          logging.info('Removed submission (spam).')
-      #          permalink = target.permalink
-      #      elif isinstance(target, Comment):
-      #          logging.info('Removed comment (spam).')
-      #          permalink = target.permalink(fast=True)
-      #      self.log(subreddit, '\n\n{} removed {} (spam)'.format(
-      #          report['author'], permalink))
-        # Check for !ban command.
-      #  temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
-      #                    re.IGNORECASE) # Temporary ban
-      #  perma_match = re.search(r'!ban "([^"]*)" "([^"]*)"', report['reason'],
-      #                    re.IGNORECASE) # Permanent ban
-      #  if (temp_match or perma_match):
-      #      if temp_match:
-      #          duration = temp_match.group(1)
-      #          reason = temp_match.group(2)
-      #          msg = temp_match.group(3)
-      #          logging.info('Ban (%s: %s -- %s) matched.', duration, reason,
-      #                       msg)
-      #          self.r.subreddit(subreddit).banned.add(
-      #              target.author.name, duration=duration, note=reason,
-      #              ban_message=msg)
-      #      if perma_match:
-      #          reason = perma_match.group(1)
-      #          msg = perma_match.group(2)
-      #          logging.info('Ban (Permanent: %s -- %s) matched.', reason,
-      #                       msg)
-      #          self.r.subreddit(subreddit).banned.add(
-      #              target.author.name, note=reason,
-      #              ban_message=msg)
-      #      if 'source' in report:
-      #          report['source'].mod.remove()
-      #      target.mod.remove()
-      #      logging.info('User banned.')
-      #      self.log(subreddit, '\n\n{} banned u/{}'.format(
-      #          report['author'], target.author.name))
-
- #   def log(self, subreddit, msg):
- #       logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
- #       try:
- #           logs_content = logs_page.content_md
- #       except TypeError:
- #           logs_content = ""
- #       logs_page.edit("{}{}  \n".format(logs_content, msg))
 
     def log(self, subreddit, msg):
-#        if not self.logging_enabled:
-#            return
-        logs_page = self.r.subreddit(subreddit).wiki["taskerbot_logs"]
+        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
         try:
             logs_content = logs_page.content_md
         except TypeError:
             logs_content = ""
-#        except NotFound:
-#            logging.warning(
-#                "r/%s/wiki/taskerbot_logs not found, disabling logging",
-#                subreddit,
-#            )
-#            self.logging_enabled = False
-#            return
         logs_page.edit("{}{}  \n".format(logs_content, msg))
 
     def check_mail(self):
