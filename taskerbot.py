@@ -120,7 +120,7 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\n{} removed {} on {}'.format(
+            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
                 report['author'], permalink, today))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
@@ -133,8 +133,8 @@ class Bot(object):
             elif isinstance(target, Comment):
                 logging.info('Removed comment (spam).')
                 permalink = target.permalink(fast=True)
-            self.log(subreddit, '\n\n{} removed {} (spam)'.format(
-                report['author'], permalink))
+            self.log(subreddit, '\n\n{} removed {} (spam) on {} EST'.format(
+                report['author'], permalink, today))
         # Check for !ban command.
         temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
                           re.IGNORECASE) # Temporary ban
@@ -162,8 +162,8 @@ class Bot(object):
                 report['source'].mod.remove()
             target.mod.remove()
             logging.info('User banned.')
-            self.log(subreddit, '\n\n{} banned u/{}'.format(
-                report['author'], target.author.name))
+            self.log(subreddit, '\n\n{} banned u/{} on {} EST'.format(
+                report['author'], target.author.name, today))
 
     def log(self, subreddit, msg):
         logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
