@@ -53,8 +53,8 @@ class Bot(object):
             if log.target_fullname:
                     #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
-             #   if submission.link_flair_text is None:
-             #       continue
+                if not submission.link_flair_text:
+                    continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
                 self.handle_report(subreddit, report, submission, today)
         
