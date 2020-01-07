@@ -47,7 +47,7 @@ class Bot(object):
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
-        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=25):
+        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=2):
             mod = log.mod.name
             if log.target_fullname:
                     #.startswith("t3_"):
