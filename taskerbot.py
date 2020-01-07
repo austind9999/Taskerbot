@@ -50,8 +50,7 @@ class Bot(object):
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
             mod = log.mod.name
             today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-            if log.target_fullname:
-                    #.startswith("t3_"):
+            if target_fullname is not None and target_fullname.startswith('t3_'):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 if not submission.link_flair_text:
                     continue
