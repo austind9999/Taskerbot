@@ -79,7 +79,7 @@ class Bot(object):
                       'author': reported_submission.mod_reports[0][1]}
             self.handle_report(subreddit, report, reported_submission)
 
-    def handle_report(self, subreddit, report, target):
+    def handle_report(self, subreddit, report, target, time):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
