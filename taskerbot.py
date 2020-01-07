@@ -49,13 +49,14 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
             mod = log.mod.name
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if log.target_fullname:
                     #.startswith("t3_"):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 if not submission.link_flair_text:
                     continue
                 report = {'reason': submission.link_flair_text, 'author': mod}
-                self.handle_report(subreddit, report, submission)
+                self.handle_report(subreddit, report, submission, today)
         
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
@@ -117,8 +118,8 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\n{} removed {}'.format(
-                report['author'], permalink))
+            self.log(subreddit, '\n\n{} removed {} on {}'.format(
+                report['author'], permalink, today))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
             if 'source' in report:
