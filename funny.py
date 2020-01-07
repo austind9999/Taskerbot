@@ -121,7 +121,7 @@ class Bot(object):
             permalink = target.permalink
 #            self.log(subreddit, f"{report['author']} removed {permalink}")
             self.log(subreddit, '\n\n{} removed {}'.format(
-#                report['author'], permalink))
+                report['author'], permalink))
         # Check for !spam command.
       #  if report['reason'].lower().startswith('!spam'):
       #      if 'source' in report:
