@@ -201,7 +201,7 @@ class Bot(object):
                 try:
                     self.check_comments(subreddit)
                     self.check_flairs(subreddit)
-                    self.check_reports(subreddit)
+                   # self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
                     logging.exception(exception)
