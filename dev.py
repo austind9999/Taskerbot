@@ -56,6 +56,7 @@ class Bot(object):
         
     def check_perms(self, subreddit):
         logging.info('Checking perms: %s...', subreddit)
+        dict = sub['perms']
         print(dict)
         
     def check_flairs(self, subreddit):
