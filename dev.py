@@ -137,7 +137,7 @@ class Bot(object):
 
                 self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
                     report['author'], permalink, today))
-            continue
+        continue
             # Check for !spam command.
             if report['reason'].lower().startswith('!spam'):
                 if 'source' in report:
