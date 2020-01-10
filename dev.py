@@ -50,9 +50,10 @@ class Bot(object):
         logging.info('Reasons loaded.')
         
     def check_perms(self, subreddit):
-        logging.info('Checking perms: ...%s...', subreddit)
+        logging.info('Checking perms: %s...', subreddit)
         for moderator in self.r.subreddit(subreddit).moderator():
             print(moderator)
+            print(vars)
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
