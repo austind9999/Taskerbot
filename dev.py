@@ -100,44 +100,42 @@ class Bot(object):
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
                           re.IGNORECASE)
-        if (mod not in sub['perms']):
-            if match:
-                rule = match.group(1)
-                note = match.group(2)
-                logging.info('Rule %s matched.', rule)
-                if rule not in sub['reasons']:
-                    rule = 'Generic'
-                msg = sub['reasons'][rule]['Message']
-                if note:
-                    msg = '{}\n\n{}'.format(msg, note)
+        if match and if (mod in sub['perms'])::
+            rule = match.group(1)
+            note = match.group(2)
+            logging.info('Rule %s matched.', rule)
+            if rule not in sub['reasons']:
+                rule = 'Generic'
+            msg = sub['reasons'][rule]['Message']
+            if note:
+                msg = '{}\n\n{}'.format(msg, note)
 
-                if 'source' in report is not None:
-                    report['source'].mod.remove()
-                target.mod.remove()
+            if 'source' in report is not None:
+                report['source'].mod.remove()
+            target.mod.remove()
 
-            #    if target.author.name is not None:
-            #        authorname = target.author.name 
-            #    if target.author.name is None: 
-                authorname = "OP"
+        #    if target.author.name is not None:
+        #        authorname = target.author.name 
+        #    if target.author.name is None: 
+            authorname = "OP"
 
-                if isinstance(target, Submission):
-                    logging.info('Removed submission.')
-                    header = sub['reasons']['Header'].format(
-                        author=authorname)
-                    footer = sub['reasons']['Footer'].format(
-                        author=authorname)
-                    msg = '{header}\n\n{msg}\n\n{footer}'.format(
-                        header=header, msg=msg, footer=footer)
-                    target.reply(msg).mod.distinguish(sticky=True)
-                    target.mod.flair(sub['reasons'][rule]['Flair'])
-                    permalink = target.permalink
-                elif isinstance(target, Comment):
-                    logging.info('Removed comment.')
-                    permalink = target.permalink(fast=True)
+            if isinstance(target, Submission):
+                logging.info('Removed submission.')
+                header = sub['reasons']['Header'].format(
+                    author=authorname)
+                footer = sub['reasons']['Footer'].format(
+                    author=authorname)
+                msg = '{header}\n\n{msg}\n\n{footer}'.format(
+                    header=header, msg=msg, footer=footer)
+                target.reply(msg).mod.distinguish(sticky=True)
+                target.mod.flair(sub['reasons'][rule]['Flair'])
+                permalink = target.permalink
+            elif isinstance(target, Comment):
+                logging.info('Removed comment.')
+                permalink = target.permalink(fast=True)
 
-                self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
-                    report['author'], permalink, today))
-        continue
+            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
+                report['author'], permalink, today))
             # Check for !spam command.
             if report['reason'].lower().startswith('!spam'):
                 if 'source' in report:
