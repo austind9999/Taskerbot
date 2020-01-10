@@ -16,8 +16,6 @@ import yaml
 
 
 class Bot(object):
-    
-    def __call__(redditor=None):
 
     def __init__(self, r):
         self.r = r
