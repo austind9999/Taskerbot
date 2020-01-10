@@ -29,9 +29,10 @@ class Bot(object):
             sub['mods'] = list(mod.name for mod in
                                self.r.subreddit(subreddit).moderator())
             logging.info('Mods loaded: %s.', sub['mods'])
-          #  logging.info('Loading permissions...')
-          #  sub['perms'] = list(mod.permissions for mod in
-          #                     self.r.subreddit(subreddit).moderator())
+            logging.info('Loading permissions...')
+            sub['perms'] = list(mod.permissions for mod in
+                               self.r.subreddit(subreddit).moderator())
+            logging.info('Mod perms loaded: %s.', sub['perms'])
             logging.info('Loading reasons…')
             sub['reasons'] = yaml.load(html.unescape(
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
@@ -44,16 +45,20 @@ class Bot(object):
         sub['mods'] = list(mod.name for mod in
                            self.r.subreddit(subreddit).moderator())
         logging.info('Mods loaded: %s.', sub['mods'])
+        logging.info('Loading permissions...')
+        sub['perms'] = list(mod.permissions for mod in
+                           self.r.subreddit(subreddit).moderator())
+        logging.info('Mod perms loaded: %s.', sub['perms'])
         logging.info('Loading reasons…')
         sub['reasons'] = yaml.load(html.unescape(
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
         
-    def check_perms(self, subreddit):
-        logging.info('Checking perms: %s...', subreddit)
-        for moderator in self.r.subreddit(subreddit).moderator():
-            print(moderator)
-            print('{}: {}'.format(moderator, moderator.mod_permissions))
+    #def check_perms(self, subreddit):
+    #    logging.info('Checking perms: %s...', subreddit)
+    #    for moderator in self.r.subreddit(subreddit).moderator():
+    #        print(moderator)
+    #        print('{}: {}'.format(moderator, moderator.mod_permissions))
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
@@ -208,11 +213,11 @@ class Bot(object):
             logging.info('Running cycle…')
             for subreddit in SUBREDDITS:
                 try:
-                   # self.check_comments(subreddit)
-                   # self.check_flairs(subreddit)
-                   # self.check_reports(subreddit)
-                   # self.check_mail()
-                    self.check_perms(subreddit)
+                    self.check_comments(subreddit)
+                    self.check_flairs(subreddit)
+                    self.check_reports(subreddit)
+                    self.check_mail()
+                   # self.check_perms(subreddit)
                 except Exception as exception:
                     logging.exception(exception)
             logging.info('Sleeping…')
