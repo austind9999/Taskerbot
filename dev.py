@@ -100,7 +100,7 @@ class Bot(object):
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
                           re.IGNORECASE)
-        if match and if (mod in sub['perms'])::
+        if match and (mod in sub['perms'])::
             rule = match.group(1)
             note = match.group(2)
             logging.info('Rule %s matched.', rule)
