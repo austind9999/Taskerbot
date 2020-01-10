@@ -30,7 +30,7 @@ class Bot(object):
                                self.r.subreddit(subreddit).moderator())
             logging.info('Mods loaded: %s.', sub['mods'])
             logging.info('Loading permissions...')
-            sub['perms'] = list(mod.permissions for mod in
+            sub['perms'] = list(moderator.mod_permissions for moderator in
                                self.r.subreddit(subreddit).moderator())
             logging.info('Mod perms loaded: %s.', sub['perms'])
             logging.info('Loading reasons…')
@@ -46,7 +46,7 @@ class Bot(object):
                            self.r.subreddit(subreddit).moderator())
         logging.info('Mods loaded: %s.', sub['mods'])
         logging.info('Loading permissions...')
-        sub['perms'] = list(mod.permissions for mod in
+        sub['perms'] = list(moderator.mod_permissions for moderator in
                            self.r.subreddit(subreddit).moderator())
         logging.info('Mod perms loaded: %s.', sub['perms'])
         logging.info('Loading reasons…')
