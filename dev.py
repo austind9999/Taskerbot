@@ -53,7 +53,7 @@ class Bot(object):
         logging.info('Checking perms: %s...', subreddit)
         for moderator in self.r.subreddit(subreddit).moderator():
             print(moderator)
-            print(vars)
+            print('{}: {}'.format(moderator, moderator.mod_permissions))
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
