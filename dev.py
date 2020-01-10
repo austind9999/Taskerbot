@@ -16,6 +16,8 @@ import yaml
 
 
 class Bot(object):
+    
+    def __call__(redditor=None):
 
     def __init__(self, r):
         self.r = r
@@ -48,7 +50,7 @@ class Bot(object):
         
     def test_perms(self, subreddit):
         for moderator in self.r.subreddit(subreddit).moderator():
-            print('moderator' moderator.mod_permissions)
+            print('{}: {}'.format(moderator, moderator.mod_permissions))
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
@@ -211,7 +213,7 @@ class Bot(object):
                 except Exception as exception:
                     logging.exception(exception)
             logging.info('Sleeping…')
-            time.sleep(32) # PRAW caches responses for 30s.
+            time.sleep(32) # PRAW caches responses for 30s
 
 
 if __name__ == '__main__':
