@@ -34,7 +34,7 @@ class Bot(object):
             for mod in self.r.subreddit(subreddit).moderator():
                 mod_cache[mod.name] = mod.mod_permissions
             self.mod_cache = mod_cache
-            logging.info('Mod perms loaded: %s.', sub['perms'])
+            logging.info('Mod perms loaded: %s.', sub['mod_cache'])
             logging.info('Loading reasons…')
             sub['reasons'] = yaml.load(html.unescape(
                 self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
