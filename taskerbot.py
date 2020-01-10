@@ -4,11 +4,13 @@ import logging
 import re
 import sys
 import time
+import datetime
 
 from praw import Reddit
 from praw.models.reddit.comment import Comment
 from praw.models.reddit.submission import Submission
 from praw.models.reddit.submission import SubmissionFlair
+from praw.models.reddit.subreddit import SubredditModeration
 import yaml
 
 
@@ -43,28 +45,42 @@ class Bot(object):
             self.r.subreddit(subreddit).wiki['taskerbot'].content_md))
         logging.info('Reasons loaded.')
         
+    def check_flairs(self, subreddit):
+        logging.info('Checking subreddit flairs: %s…', subreddit)
+        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
+            mod = log.mod.name
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+            if log.target_fullname is not None and log.target_fullname.startswith('t3_'):
+                submission = self.r.submission(id=log.target_fullname[3:])
+                if not submission.link_flair_text:
+                    continue
+                report = {'reason': submission.link_flair_text, 'author': mod}
+                self.handle_report(subreddit, report, submission, today)
+        
     def check_comments(self, subreddit):
         logging.info('Checking subreddit: %s…', subreddit)
         sub = self.subreddits[subreddit]
         for comment in self.r.subreddit(subreddit).comments(limit=100):
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if (comment.banned_by or not comment.author or
                     comment.author.name not in sub['mods']):
                 continue
             report = {'source': comment, 'reason': comment.body,
                       'author': comment.author.name}
-            self.handle_report(subreddit, report, comment.parent())
+            self.handle_report(subreddit, report, comment.parent(), today)
 
     def check_reports(self, subreddit):
         logging.info('Checking subreddit reports: %s…', subreddit)
         for reported_submission in self.r.subreddit(subreddit).mod.reports():
+            today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if not reported_submission.mod_reports:
                 continue
 
             report = {'reason': reported_submission.mod_reports[0][0],
                       'author': reported_submission.mod_reports[0][1]}
-            self.handle_report(subreddit, report, reported_submission)
+            self.handle_report(subreddit, report, reported_submission, today)
 
-    def handle_report(self, subreddit, report, target):
+    def handle_report(self, subreddit, report, target, today):
         sub = self.subreddits[subreddit]
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
@@ -79,16 +95,21 @@ class Bot(object):
             if note:
                 msg = '{}\n\n{}'.format(msg, note)
 
-            if 'source' in report:
+            if 'source' in report is not None:
                 report['source'].mod.remove()
             target.mod.remove()
-
+            
+        #    if target.author.name is not None:
+        #        authorname = target.author.name 
+        #    if target.author.name is None: 
+            authorname = "OP"
+            
             if isinstance(target, Submission):
                 logging.info('Removed submission.')
                 header = sub['reasons']['Header'].format(
-                    author=target.author.name)
+                    author=authorname)
                 footer = sub['reasons']['Footer'].format(
-                    author=target.author.name)
+                    author=authorname)
                 msg = '{header}\n\n{msg}\n\n{footer}'.format(
                     header=header, msg=msg, footer=footer)
                 target.reply(msg).mod.distinguish(sticky=True)
@@ -98,8 +119,8 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\n{} removed {}'.format(
-                report['author'], permalink))
+            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
+                report['author'], permalink, today))
         # Check for !spam command.
         if report['reason'].lower().startswith('!spam'):
             if 'source' in report:
@@ -111,8 +132,8 @@ class Bot(object):
             elif isinstance(target, Comment):
                 logging.info('Removed comment (spam).')
                 permalink = target.permalink(fast=True)
-            self.log(subreddit, '\n\n{} removed {} (spam)'.format(
-                report['author'], permalink))
+            self.log(subreddit, '\n\n{} removed {} (spam) on {} EST'.format(
+                report['author'], permalink, today))
         # Check for !ban command.
         temp_match = re.search(r'!ban (\d*) "([^"]*)" "([^"]*)"', report['reason'],
                           re.IGNORECASE) # Temporary ban
@@ -140,8 +161,8 @@ class Bot(object):
                 report['source'].mod.remove()
             target.mod.remove()
             logging.info('User banned.')
-            self.log(subreddit, '\n\n{} banned u/{}'.format(
-                report['author'], target.author.name))
+            self.log(subreddit, '\n\n{} banned u/{} on {} EST'.format(
+                report['author'], target.author.name, today))
 
     def log(self, subreddit, msg):
         logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
@@ -178,6 +199,7 @@ class Bot(object):
             for subreddit in SUBREDDITS:
                 try:
                     self.check_comments(subreddit)
+                    self.check_flairs(subreddit)
                     self.check_reports(subreddit)
                     self.check_mail()
                 except Exception as exception:
