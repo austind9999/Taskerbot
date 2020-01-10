@@ -30,7 +30,7 @@ class Bot(object):
                                self.r.subreddit(subreddit).moderator())
             logging.info('Mods loaded: %s.', sub['mods'])
             logging.info('Loading permissions...')
-            sub['perms'] = list(mod.permission for mod in
+            sub['perms'] = list(mod.permissions for mod in
                                self.r.subreddit(subreddit).moderator())
             logging.info('Loading reasons…')
             sub['reasons'] = yaml.load(html.unescape(
