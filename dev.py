@@ -30,8 +30,10 @@ class Bot(object):
                                self.r.subreddit(subreddit).moderator())
             logging.info('Mods loaded: %s.', sub['mods'])
             logging.info('Loading permissions...')
-            sub['perms'] = dict((moderator, moderator.mod_permissions) for moderator in
-                               self.r.subreddit(subreddit).moderator())
+            mod_cache = {}
+            for mod in self.r.subreddit(subreddit).moderator():
+                mod_cache[mod.name] = mod.mod_permissions
+            self.mod_cache = mod_cache
             logging.info('Mod perms loaded: %s.', sub['perms'])
             logging.info('Loading reasons…')
             sub['reasons'] = yaml.load(html.unescape(
@@ -99,7 +101,7 @@ class Bot(object):
         # Check for !rule command.
         match = re.search(r'!rule (\w*) *(.*)', report['reason'],
                           re.IGNORECASE)
-        if match and 'author' in sub['perms']:
+        if match and 'author' in sub['mod_cache']:
             rule = match.group(1)
             note = match.group(2)
             logging.info('Rule %s matched.', rule)
