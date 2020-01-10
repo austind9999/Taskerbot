@@ -30,7 +30,7 @@ class Bot(object):
                                self.r.subreddit(subreddit).moderator())
             logging.info('Mods loaded: %s.', sub['mods'])
             logging.info('Loading permissions...')
-            mod_cache = {}
+            sub['mod_cache'] = {}
             for mod in self.r.subreddit(subreddit).moderator():
                 mod_cache[mod.name] = mod.mod_permissions
             self.mod_cache = mod_cache
