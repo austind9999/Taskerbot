@@ -96,7 +96,7 @@ class Bot(object):
                 logging.info('Removed comment.')
                 permalink = target.permalink(fast=True)
 
-            self.log(subreddit, '\n\n{} removed {} on {} EST'.format(
+            self.log(subreddit, '\n{} removed {} on {} EST'.format(
                 report['author'], permalink, today))
 
     def log(self, subreddit, msg):
