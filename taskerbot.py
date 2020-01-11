@@ -47,7 +47,7 @@ class Bot(object):
         
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
-        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=50):
+        for log in self.r.subreddit(subreddit).mod.log(action="editflair", limit=100):
             mod = log.mod.name
             today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             if log.target_fullname is not None and log.target_fullname.startswith('t3_'):
