@@ -102,7 +102,12 @@ class Bot(object):
                 submission = self.r.submission(id=log.target_fullname[3:])
                 if not submission.link_flair_text:
                     continue
-                report = {'reason': submission.link_flair_text, 'author': mod}
+                    
+                report = {
+                    "source": None,
+                    "reason": submission.link_flair_text,
+                    "author": mod,
+                }
                 self.handle_report(subreddit, report, submission, today)
         
     def check_comments(self, subreddit):
