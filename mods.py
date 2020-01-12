@@ -34,7 +34,7 @@ class Bot(object):
             
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
-        for log in reddit.subreddit('mod').mod.log(limit=50):
+        for log in self.r.subreddit('mod').mod.log():
             print("Mod: {}, Subreddit: {}".format(log.mod, log.subreddit))
             
     def log(self, subreddit, msg):
