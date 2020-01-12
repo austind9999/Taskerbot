@@ -27,6 +27,14 @@ class Bot(object):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in reddit.subreddit('mod').mod.log(limit=50):
             print("Mod: {}, Subreddit: {}".format(log.mod, log.subreddit))
+            
+    def log(self, subreddit, msg):
+        logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
+        try:
+            logs_content = logs_page.content_md
+        except TypeError:
+            logs_content = ""
+        logs_page.edit("{}{}  \n".format(logs_content, msg))
 
     def run(self):
         while True:
