@@ -25,7 +25,7 @@ class Bot(object):
             
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
-        for log in reddit.subreddit('mod').mod.log(limit=5):
+        for log in reddit.subreddit('mod').mod.log(limit=50):
             print("Mod: {}, Subreddit: {}".format(log.mod, log.subreddit))
 
     def run(self):
@@ -38,3 +38,21 @@ class Bot(object):
                     logging.exception(exception)
             logging.info('Sleeping…')
             time.sleep(32) # PRAW caches responses for 30s.
+            
+if __name__ == '__main__':
+    with open('config.yaml') as config_file:
+        CONFIG = yaml.load(config_file)
+        CLIENT_ID = CONFIG['Client ID']
+        CLIENT_SECRET = CONFIG['Client Secret']
+        USERNAME = CONFIG['Username']
+        PASSWORD = CONFIG['Password']
+        SUBREDDITS = CONFIG['Subreddits']
+        USER_AGENT = CONFIG['User Agent']
+
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO,
+                        format='%(asctime)s %(levelname)s: %(message)s')
+    logging.info('Logging in…')
+    MODBOT = Bot(Reddit(client_id=CLIENT_ID, client_secret=CLIENT_SECRET,
+                        user_agent=USER_AGENT, username=USERNAME,
+                        password=PASSWORD))
+    MODBOT.run()
