@@ -35,7 +35,7 @@ class Bot(object):
     def check_flairs(self, subreddit):
         logging.info('Checking subreddit flairs: %s…', subreddit)
         for log in self.r.subreddit('mod').mod.log():
-            print("Mod: {}, Subreddit: {}, Action: {}".format(log.mod, log.subreddit))
+            print("Mod: {}, Subreddit: {}, Action: {}".format(log.mod, log.subreddit, log.action))
             
     def log(self, subreddit, msg):
         logs_page = self.r.subreddit(subreddit).wiki['taskerbot_logs']
