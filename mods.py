@@ -53,8 +53,8 @@ class Bot(object):
                     self.check_flairs(subreddit)
                 except Exception as exception:
                     logging.exception(exception)
-            logging.info('Sleeping…')
-            time.sleep(32) # PRAW caches responses for 30s.
+       #     logging.info('Sleeping…')
+       #     time.sleep(32) # PRAW caches responses for 30s.
             
 if __name__ == '__main__':
     with open('config.yaml') as config_file:
