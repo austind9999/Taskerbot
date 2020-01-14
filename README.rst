@@ -20,13 +20,13 @@ the following commands:
 
   Example: ``!rule 1``, ``!rule spam``, ``!rule repost this is a note``.
 
-- ``!spam``: **marks the submission as spam and removes it**.
+- ``!spam``: **marks the submission as spam and removes it**. (Can not be used with flair removals!)
 
 - ``!ban [duration] "{reason}" "{message}"``: **bans the comment/thread's
   author**. The last two arguments are required. ``duration``, if provided, is
   the ban's duration in days, ``reason`` is the ban's reason (visible only to
   mods), and ``message`` is the message the banned user will receive. ``reason``
-  and ``message`` must be between quotations (``""```) (escapes are not supported).
+  and ``message`` must be between quotations (``""```) (escapes are not supported). (Can not be used with flair removals!)
 
   Example: ``!ban 3600 "spammer" "repeatedly spamming somedomain.com"``
 
@@ -35,7 +35,7 @@ comment (as opposed to a moderator report), it will automatically remove it.
 
 - **Refreshing the list of moderators/removal reasons**:
 
-  Taskerbot loads the subreddit's list of moderators and removal reasons at
+  TaskerbotRecode loads the subreddit's list of moderators and removal reasons at
   startup. To refresh these, send Taskerbot a message containing ``!refresh
   Subreddit`` (e.g. ``!refresh memes`` to reload ``/r/memes``'s
   configuration).
@@ -75,6 +75,8 @@ load. That being said, you're free to run your own instance.
 
 You'll first want to create a new account and make it a mod of your subreddit.
 Required permissions are: access, flair, posts, and wiki.
+
+To check only post flairs and not allow banning use flair-rule-only.py when running.
 
 Configuration
 -------------
