@@ -59,9 +59,10 @@ class Bot(object):
         self.subreddits = {}
         for subreddit in SUBREDDITS:
             logging.info("Checking subreddit: %s…", subreddit)
-            mods, reasons = self.load_sub_config(subreddit)
+            mods, modban, reasons = self.load_sub_config(subreddit)
             self.subreddits[subreddit] = {
                 "mods": mods,
+                "modban": modban,
                 "reasons": reasons,
             }
 
@@ -69,6 +70,9 @@ class Bot(object):
         logging.debug("Loading mods…")
         mods = [mod.name for mod in self.r.subreddit(subreddit).moderator()]
         logging.info("Mods loaded: %s.", mods)
+        logging.debug("Loading modban...")
+        modban = {mod.name: mod.mod_permissions for mod in self.r.subreddit(subreddit).moderator()}
+        logging.info("Mods loaded: %s.", modban)
         logging.debug("Loading reasons…")
         try:
             reasons = yaml.safe_load(
@@ -87,9 +91,10 @@ class Bot(object):
             
     def refresh_sub(self, subreddit):
         logging.info("Refreshing subreddit: %s…", subreddit)
-        mods, reasons = self.load_sub_config(subreddit)
+        mods, modban, reasons = self.load_sub_config(subreddit)
         sub = self.subreddits[subreddit]
         sub["mods"] = mods
+        sub["modban"] = modban
         if reasons is not None:
             sub["reasons"] = reasons
         
